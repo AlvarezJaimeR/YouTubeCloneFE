@@ -8,41 +8,30 @@ import SearchResultsContainer from "./components/SearchResultsContainer/SearchRe
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      commentInfo: [],
+    this.state = {
+      videoInfo: [],
       search: "My Little Pony",
       showResultsContainer: true,
-      apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
-      youTubeVideoData: [],
     };
   }
 
   componentDidMount() {
-    this.getComments();
-    this.searchYouTubeVideos();
-  }
-
-  async searchYouTubeVideos() {
-    try {
-      const response = await this.getYouTubeVideosPromise(this.state.search, this.state.apiKey);
-      this.setState({
-        commentInfo: info
+    axios
+      .get("http://localhost:5000/api/comments/")
+      .then((res) => {
+        console.log("get all comments", res);
+        const info = res.data;
+        this.setState({
+          videoInfo: info,
+        });
       })
-      }catch(err) {
+      .catch((err) => {
         console.log(err);
-      };
+      });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    switch (event) {
-      case "search":
-        this.searchYouTubeVideos();
-        break;
-
-      default:
-        break;
-    }
   }
 
   handleChange(event) {
@@ -58,14 +47,30 @@ class App extends Component {
     });
   }
 
+  getComments() {
+    axios
+      .get("http://localhost:5000/api/comments/")
+      .then((res) => {
+        console.log("get all comments", res);
+        const info = res.data;
+        this.setState({
+          videoInfo: info,
+          commentInfo: info,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <div className="container w-100 h-100 align-items-center">
         <h1 className="text-center h-100">YOUTUBE CLONE</h1>
         <TitleBar />
-        <SearchResultsContainer videos={this.state.youTubeVideoData} />
+        <SearchResultsContainer />
         <h1> Hello World! </h1>
-        <Comments addNewComment={this.addNewComment.bind(this)}/>
+        <Comments addNewComment={this.addNewComment.bind(this)} />
       </div>
     );
   }
