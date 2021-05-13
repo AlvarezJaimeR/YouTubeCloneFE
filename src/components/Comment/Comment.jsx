@@ -22,7 +22,6 @@ class Comment extends Component {
         event.preventDefault();
         const comment = {
             text: this.state.text,
-            videoId: this.state.videoId
         }
         this.props.addNewComment(comment);
         this.setState({

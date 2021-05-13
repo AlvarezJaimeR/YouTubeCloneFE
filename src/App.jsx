@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      videoInfo: [],
+      commentInfo: [],
       search: "My Little Pony",
       showResultsContainer: true
     }
@@ -21,7 +21,7 @@ class App extends Component {
       console.log('get all comments', res);
       const info = res.data;
       this.setState({
-        videoInfo: info
+        commentInfo: info
       })
     })
       .catch(err => {
@@ -48,12 +48,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="contrainer w-100 h-100 alight-items-center">
+      <div className="container w-100 h-100 align-items-center">
         <h1 className="text-center h-100">YOUTUBE CLONE</h1>
         <TitleBar />
         <SearchResultsContainer />
         <h1> Hello World! </h1>
-        <Comments />
+        <Comments addNewComment={this.addNewComment.bind(this)}/>
       </div>
     );
   }

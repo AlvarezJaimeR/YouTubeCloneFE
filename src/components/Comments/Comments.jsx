@@ -13,7 +13,8 @@ class Comments extends Component {
         return (
             <div>
                 <h1>Where the comment will be.</h1>
-                <Comment title='Comment' />
+                <Comment title='Comment' addNewComment={this.props.addNewComment()}/>
+                <Comment title='Reply' />
             </div>
         )
     }
