@@ -9,11 +9,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      videoInfo: [],
+      commentInfo: [],
       search: "My Little Pony",
       showResultsContainer: true,
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
       youTubeVideoData: [],
+      loading: true
     }
   }
 
@@ -25,8 +26,10 @@ class App extends Component {
   async searchYouTubeVideos() {
     try {
       const response = await this.getYouTubeVideosPromise(this.state.search, this.state.apiKey);
+      console.log('response youtubeVid', response);
       this.setState({
         youTubeVideoData: response.data,
+        loading: false
       });
     } catch (error) {
       console.log(error);
@@ -39,6 +42,7 @@ class App extends Component {
         `https://www.googleapis.com/youtube/v3/search?q=${searchString}&key=${apiKey}`
       );
       if (response != null) {
+        console.log('promise', response); 
         res(response);
       } else {
         rej(new Error(`Unable to access data using Search: ${searchString} & API Key ${apiKey} `));
@@ -53,7 +57,7 @@ class App extends Component {
         console.log("get all comments", res);
         const info = res.data;
         this.setState({
-          videoInfo: info,
+          commentInfo: info,
         });
       })
   }
@@ -84,15 +88,24 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="container w-100 h-100 align-items-center">
-        <h1 className="text-center h-100">YOUTUBE CLONE</h1>
-        <TitleBar />
-        <SearchResultsContainer videos={this.state.youTubeVideoData} />
-        <h1> Hello World! </h1>
-        <Comments />
-      </div>
-    );
+    if (this.state.loading === true) {
+      return (
+        <div>
+            <h1>Loading...</h1>
+        </div>
+      )
+    }
+    if (this.state.loading === false){
+      return (
+        <div className="container w-100 h-100 align-items-center">
+          <h1 className="text-center h-100">YOUTUBE CLONE</h1>
+          <TitleBar />
+          <SearchResultsContainer videos={this.state.youTubeVideoData} />
+          <h1> Hello World! </h1>
+          <Comments />
+        </div>
+      );
+    }
   }
 }
 
