@@ -8,8 +8,8 @@ import SearchResultsContainer from "./components/SearchResultsContainer/SearchRe
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      commentInfo: [],
+    this.state = {
+      videoInfo: [],
       search: "My Little Pony",
       showResultsContainer: true,
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
@@ -60,18 +60,13 @@ class App extends Component {
           commentInfo: info,
         });
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    switch (event) {
-      case "search":
-        this.searchYouTubeVideos();
-        break;
-
-      default:
-        break;
-    }
   }
 
   handleChange(event) {

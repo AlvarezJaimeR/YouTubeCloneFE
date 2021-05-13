@@ -19,6 +19,7 @@ const SearchResultsContainer = (props) => {
         <div className="col">Video</div>
         <div className="col">Video</div>
         <div className="col">Video</div>
+        <div className="col">Video</div>
         <div className="col">Video</div> */}
       </div>
     </div>
