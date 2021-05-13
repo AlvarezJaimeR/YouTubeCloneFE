@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import axios from 'axios';
-import Comments from './components/Comments/Comments';
+import React, { Component } from "react";
+import axios from "axios";
+import Comments from "./components/Comments/Comments";
 import "./App.css";
 import TitleBar from "./components/TitleBar/TitleBar";
 import SearchResultsContainer from "./components/SearchResultsContainer/SearchResultsContainer";
@@ -11,26 +11,38 @@ class App extends Component {
     this.state = { 
       commentInfo: [],
       search: "My Little Pony",
-      showResultsContainer: true
-    }
+      showResultsContainer: true,
+      apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
+      youTubeVideoData: [],
+    };
   }
 
-  componentDidMount(){
-    axios.get("http://localhost:5000/api/comments/")
-    .then(res => {
-      console.log('get all comments', res);
-      const info = res.data;
+  componentDidMount() {
+    this.getComments();
+    this.searchYouTubeVideos();
+  }
+
+  async searchYouTubeVideos() {
+    try {
+      const response = await this.getYouTubeVideosPromise(this.state.search, this.state.apiKey);
       this.setState({
         commentInfo: info
       })
-    })
-      .catch(err => {
-        console.log(err)
-    })
+      }catch(err) {
+        console.log(err);
+      };
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    switch (event) {
+      case "search":
+        this.searchYouTubeVideos();
+        break;
+
+      default:
+        break;
+    }
   }
 
   handleChange(event) {
@@ -51,7 +63,7 @@ class App extends Component {
       <div className="container w-100 h-100 align-items-center">
         <h1 className="text-center h-100">YOUTUBE CLONE</h1>
         <TitleBar />
-        <SearchResultsContainer />
+        <SearchResultsContainer videos={this.state.youTubeVideoData} />
         <h1> Hello World! </h1>
         <Comments addNewComment={this.addNewComment.bind(this)}/>
       </div>
