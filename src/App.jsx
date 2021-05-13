@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Comments from "./components/Comments/Comments";
+import React, {Component} from 'react';
+import axios from 'axios';
+import Comments from './components/Comments/Comments';
 import "./App.css";
 import TitleBar from "./components/TitleBar/TitleBar";
 import SearchResultsContainer from "./components/SearchResultsContainer/SearchResultsContainer";
@@ -9,12 +9,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      commentInfo: [],
+      videoInfo: [],
       search: "My Little Pony",
       showResultsContainer: true,
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
       youTubeVideoData: [],
-    };
+    }
   }
 
   componentDidMount() {
@@ -26,11 +26,36 @@ class App extends Component {
     try {
       const response = await this.getYouTubeVideosPromise(this.state.search, this.state.apiKey);
       this.setState({
-        commentInfo: info
+        youTubeVideoData: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getYouTubeVideosPromise(searchString, apiKey) {
+    return new Promise((res, rej) => {
+      const response = axios.get(
+        `https://www.googleapis.com/youtube/v3/search?q=${searchString}&key=${apiKey}`
+      );
+      if (response != null) {
+        res(response);
+      } else {
+        rej(new Error(`Unable to access data using Search: ${searchString} & API Key ${apiKey} `));
+      }
+    });
+  }
+
+  getComments() {
+    axios
+      .get("http://localhost:5000/api/comments/")
+      .then((res) => {
+        console.log("get all comments", res);
+        const info = res.data;
+        this.setState({
+          videoInfo: info,
+        });
       })
-      }catch(err) {
-        console.log(err);
-      };
   }
 
   handleSubmit(event) {
@@ -65,7 +90,7 @@ class App extends Component {
         <TitleBar />
         <SearchResultsContainer videos={this.state.youTubeVideoData} />
         <h1> Hello World! </h1>
-        <Comments addNewComment={this.addNewComment.bind(this)}/>
+        <Comments />
       </div>
     );
   }
