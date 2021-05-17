@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Comments from "./components/Comments/Comments";
 import "./App.css";
 import TitleBar from "./components/TitleBar/TitleBar";
 import SearchResultsContainer from "./components/SearchResultsContainer/SearchResultsContainer";
@@ -102,14 +101,15 @@ class App extends Component {
   setPlayer(videoID) {
     this.setState({
       activeVideoId: videoID,
-      showMainView: !this.state.showMainView,
-      showResultsContainer: !this.state.showResultsContainer,
     });
+    this.toggleView("showMainView");
+    this.toggleView("showResultsContainer");
   }
 
   render() {
     return (
-      <div className="container w-100 h-100 align-items-center">
+      // <div className="container w-100 h-100 align-items-center">
+      <div>
         {this.state.loading === true ? (
           <h1>Loading...</h1>
         ) : (
