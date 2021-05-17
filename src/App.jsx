@@ -13,6 +13,8 @@ class App extends Component {
       videoInfo: [],
       search: "Pokemon",
       showResultsContainer: true,
+      showMainView: false,
+      activeVideoId: "",
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
       youTubeVideoData: [],
       loading: true,
@@ -67,6 +69,12 @@ class App extends Component {
     event.preventDefault();
     switch (event.target.name) {
       case "search":
+        if (this.state.showResultsContainer === false) {
+          this.setState({
+            showResultsContainer: true,
+            showMainView: false,
+          });
+        }
         this.setState({
           search: this.state.search,
         });
@@ -91,28 +99,37 @@ class App extends Component {
     });
   }
 
+  setPlayer(videoID) {
+    this.setState({
+      activeVideoId: videoID,
+      showMainView: !this.state.showMainView,
+      showResultsContainer: !this.state.showResultsContainer,
+    });
+  }
+
   render() {
-    if (this.state.loading === true) {
-      return (
-        <div>
+    return (
+      <div className="container w-100 h-100 align-items-center">
+        {this.state.loading === true ? (
           <h1>Loading...</h1>
-        </div>
-      );
-    }
-    if (this.state.loading === false) {
-      return (
-        <div className="container w-100 h-100 align-items-center">
-          <h1 className="text-center h-100">YOUTUBE CLONE</h1>
-          <TitleBar
-            handleChange={(ev) => this.handleChange(ev)}
-            handleSubmit={(ev) => this.handleSubmit(ev)}
-          />
-          <SearchResultsContainer videos={this.state.youTubeVideoData} />
-          <MainView />
-          <Comments />
-        </div>
-      );
-    }
+        ) : (
+          <>
+            <h1 className="text-center h-100">YOUTUBE CLONE</h1>
+            <TitleBar
+              handleChange={(ev) => this.handleChange(ev)}
+              handleSubmit={(ev) => this.handleSubmit(ev)}
+            />
+            {this.state.showResultsContainer === true ? (
+              <SearchResultsContainer
+                videos={this.state.youTubeVideoData}
+                setPlayer={(id) => this.setPlayer(id)}
+              />
+            ) : null}
+          </>
+        )}
+        {this.state.showMainView === true ? <MainView videoId={this.state.activeVideoId} /> : null}
+      </div>
+    );
   }
 }
 
