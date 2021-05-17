@@ -134,7 +134,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container w-100 h-100 align-items-center">
         {this.state.loading === true ? (
           <h1>Loading...</h1>
         ) : (
@@ -153,11 +153,17 @@ class App extends Component {
           </>
         )}
         {this.state.showMainView === true ? (
-          <MainView videoId={this.state.activeVideoId} relatedVideos={this.state.relatedVideos} />
+          <MainView
+            videoId={this.state.activeVideoId}
+            handleSubmit={(e) => this.handleSubmit(e)}
+            handleChange={(e) => this.handleChange(e)}
+            videoData={this.state.youTubeVideoData}
+            postComments={this.postComments}
+            text={this.state.text}
+          />
         ) : null}
       </div>
     );
   }
 }
-
 export default App;
