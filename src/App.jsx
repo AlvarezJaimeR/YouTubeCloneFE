@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Comments from './components/Comments/Comments';
+import CommentContainer from './components/CommentContainer/CommentContainer';
 import "./App.css";
 import TitleBar from "./components/TitleBar/TitleBar";
 import SearchResultsContainer from "./components/SearchResultsContainer/SearchResultsContainer";
@@ -14,7 +14,9 @@ class App extends Component {
       showResultsContainer: true,
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
       youTubeVideoData: [],
-      loading: true
+      loading: true,
+      text: '',
+      videoId: ''
     }
   }
 
@@ -65,8 +67,35 @@ class App extends Component {
       });
   }
 
+  postComments(comments) {
+    axios
+      .post("http://localhost:5000/api/comments/", comments)
+      .then(res => {
+        console.log('post comment', res);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  //post Reply
+
   handleSubmit(event) {
     event.preventDefault();
+    switch (event.target.name) {
+      case 'comment':
+          console.log('comment', event);
+          console.log(this.state.text);
+          console.log(this.state.videoId);
+          const comment = {
+            text: this.state.text,
+            videoId: this.state.videoId
+          }
+          this.postComments(comment);
+        break;
+      default:
+        break;
+    }
   }
 
   handleChange(event) {
@@ -96,8 +125,9 @@ class App extends Component {
           <h1 className="text-center h-100">YOUTUBE CLONE</h1>
           <TitleBar />
           <SearchResultsContainer videos={this.state.youTubeVideoData} />
-          <h1> Hello World! </h1>
-          <Comments />
+          <CommentContainer handleSubmit={(e)=>this.handleSubmit(e)} handleChange={(e)=>this.handleChange(e)} 
+            videoData={this.state.youTubeVideoData} postComments={this.postComments} 
+            text={this.state.text} videoId={this.state.videoId}/>
         </div>
       );
     }
