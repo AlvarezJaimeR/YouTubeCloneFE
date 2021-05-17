@@ -1,26 +1,26 @@
 import React from "react";
+// import Player from "../Player/Player";
+
 const SearchResultsContainer = (props) => {
   const videos = props.videos.items;
-  console.log(props);
-  console.log(videos);
   return (
-    <div className="container text-center">
-      <div className="row row-cols-3">
-      {videos.map((video) => (
-          <div key={video.id.videoId} className="col">
-            {video.id.videoId}
-          </div>
+    <div className="container">
+      <div className="row row-cols-3 justify-content-center">
+        {videos.map((video) => (
+          <button
+            key={video.id.videoId}
+            className="btn btn-outline-primary col"
+            onClick={() => props.setPlayer(video.id.videoId)}
+          >
+            <img
+              // key={video.id.videoId}
+              src={`https://img.youtube.com/vi/${video.id.videoId}/mqdefault.jpg`}
+              // className="col"
+              width="285"
+              height="150"
+            />
+          </button>
         ))}
-{/*         <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div>
-        <div className="col">Video</div> */}
       </div>
     </div>
   );
