@@ -1,5 +1,6 @@
 import Player from "../Player/Player";
 import CommentContainer from "../CommentContainer/CommentContainer";
+import RelatedVideos from "../RelatedVideos/RelatedVideos";
 
 const MainView = (props) => {
   return (
@@ -11,11 +12,14 @@ const MainView = (props) => {
         width="500"
         height="450"
         link={`http://www.youtube.com/embed/${props.videoId}?enablejsapi=1&origin=http://example.com`}
-        // link={`https://www.googleapis.com/youtube/v3/search?q=${props.videoId}&key=${apiKey}}`}
-      />
-      <CommentContainer handleSubmit={(e)=>props.handleSubmit(e)} handleChange={(e)=>props.handleChange(e)} 
-        videoData={props.youTubeVideoData} postComments={props.postComments} 
-        text={props.text} videoId={props.videoId}/>
+        // link={`https://www.googleapis.com/youtube/v3/search?q=${props.videoId}&key=${apiKey}}`} 
+        />
+      <RelatedVideos className="col" />
+      <div className="rwo row-cols-1">
+        <CommentContainer className="col-8" handleSubmit={(e)=>props.handleSubmit(e)} handleChange={(e)=>props.handleChange(e)} 
+          videoData={props.youTubeVideoData} postComments={props.postComments} 
+          text={props.text} videoId={props.videoId}/>
+      </div>
     </div>
   );
 };

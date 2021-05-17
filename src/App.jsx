@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 import TitleBar from "./components/TitleBar/TitleBar";
 import SearchResultsContainer from "./components/SearchResultsContainer/SearchResultsContainer";
@@ -17,9 +17,9 @@ class App extends Component {
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
       youTubeVideoData: [],
       loading: true,
-      text: '',
-      videoId: ''
-    }
+      text: "",
+      videoId: "",
+    };
   }
 
   componentDidMount() {
@@ -69,12 +69,12 @@ class App extends Component {
   postComments(comments) {
     axios
       .post("http://localhost:5000/api/comments/", comments)
-      .then(res => {
-        console.log('post comment', res);
+      .then((res) => {
+        console.log("post comment", res);
       })
-      .catch(err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   //post Reply
@@ -82,15 +82,15 @@ class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
     switch (event.target.name) {
-      case 'comment':
-          console.log('comment', event);
-          console.log(this.state.text);
-          console.log(this.state.videoId);
-          const comment = {
-            text: this.state.text,
-            videoId: this.state.videoId
-          }
-          this.postComments(comment);
+      case "comment":
+        console.log("comment", event);
+        console.log(this.state.text);
+        console.log(this.state.videoId);
+        const comment = {
+          text: this.state.text,
+          videoId: this.state.videoId,
+        };
+        this.postComments(comment);
         break;
       case "search":
         if (this.state.showResultsContainer === false) {
@@ -126,9 +126,9 @@ class App extends Component {
   setPlayer(videoID) {
     this.setState({
       activeVideoId: videoID,
-      showMainView: !this.state.showMainView,
-      showResultsContainer: !this.state.showResultsContainer,
     });
+    this.toggleView("showMainView");
+    this.toggleView("showResultsContainer");
   }
 
   render() {
