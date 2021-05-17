@@ -16,6 +16,7 @@ class App extends Component {
       activeVideoId: "",
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
       youTubeVideoData: [],
+      relatedVideos: [],
       loading: true,
       text: "",
       videoId: "",
@@ -151,7 +152,9 @@ class App extends Component {
             ) : null}
           </>
         )}
-        {this.state.showMainView === true ? <MainView videoId={this.state.activeVideoId} /> : null}
+        {this.state.showMainView === true ? (
+          <MainView videoId={this.state.activeVideoId} relatedVideos={this.state.relatedVideos} />
+        ) : null}
       </div>
     );
   }

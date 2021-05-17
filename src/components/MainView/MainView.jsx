@@ -1,5 +1,5 @@
 import Player from "../Player/Player";
-import Comments from "../Comments/Comments";
+import CommentContainer from "../CommentContainer/CommentContainer";
 import RelatedVideos from "../RelatedVideos/RelatedVideos";
 
 const MainView = (props) => {
@@ -15,10 +15,10 @@ const MainView = (props) => {
           link={`http://www.youtube.com/embed/${props.videoId}?enablejsapi=1&origin=http://example.com`}
           // link={`https://www.googleapis.com/youtube/v3/search?q=${props.videoId}&key=${apiKey}}`}
         />
-        <RelatedVideos className="col" />
+        <RelatedVideos relatedVideos={props.relatedVideos} />
       </div>
       <div className="rwo row-cols-1">
-        <Comments className="col-8" />
+        <CommentContainer className="col-8" />
       </div>
     </div>
   );
