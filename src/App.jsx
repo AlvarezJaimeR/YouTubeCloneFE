@@ -17,6 +17,8 @@ class App extends Component {
       apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
       youTubeVideoData: [],
       loading: true,
+      text: "",
+      videoId: "",
     };
   }
 
@@ -64,9 +66,32 @@ class App extends Component {
       });
   }
 
+  postComments(comments) {
+    axios
+      .post("http://localhost:5000/api/comments/", comments)
+      .then((res) => {
+        console.log("post comment", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  //post Reply
+
   handleSubmit(event) {
     event.preventDefault();
     switch (event.target.name) {
+      case "comment":
+        console.log("comment", event);
+        console.log(this.state.text);
+        console.log(this.state.videoId);
+        const comment = {
+          text: this.state.text,
+          videoId: this.state.videoId,
+        };
+        this.postComments(comment);
+        break;
       case "search":
         if (this.state.showResultsContainer === false) {
           this.setState({
@@ -108,7 +133,6 @@ class App extends Component {
 
   render() {
     return (
-      // <div className="container w-100 h-100 align-items-center">
       <div>
         {this.state.loading === true ? (
           <h1>Loading...</h1>
