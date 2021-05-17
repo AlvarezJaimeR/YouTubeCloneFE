@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import CommentContainer from './components/CommentContainer/CommentContainer';
 import "./App.css";
 import TitleBar from "./components/TitleBar/TitleBar";
 import SearchResultsContainer from "./components/SearchResultsContainer/SearchResultsContainer";
@@ -143,38 +142,30 @@ class App extends Component {
     if (this.state.loading === false){
       return (
         <div className="container w-100 h-100 align-items-center">
-          <h1 className="text-center h-100">YOUTUBE CLONE</h1>
-          <TitleBar />
-          <SearchResultsContainer videos={this.state.youTubeVideoData} />
-          <CommentContainer handleSubmit={(e)=>this.handleSubmit(e)} handleChange={(e)=>this.handleChange(e)} 
+          {this.state.loading === true ? (
+            <h1>Loading...</h1>
+          ) : (
+            <>
+              <h1 className="text-center h-100">YOUTUBE CLONE</h1>
+              <TitleBar
+                handleChange={(ev) => this.handleChange(ev)}
+                handleSubmit={(ev) => this.handleSubmit(ev)}
+              />
+              {this.state.showResultsContainer === true ? (
+                <SearchResultsContainer
+                  videos={this.state.youTubeVideoData}
+                  setPlayer={(id) => this.setPlayer(id)}
+                />
+              ) : null}
+            </>
+          )}
+          {this.state.showMainView === true ? <MainView videoId={this.state.activeVideoId} 
+            handleSubmit={(e)=>this.handleSubmit(e)} handleChange={(e)=>this.handleChange(e)} 
             videoData={this.state.youTubeVideoData} postComments={this.postComments} 
-            text={this.state.text} videoId={this.state.videoId}/>
+            text={this.state.text}/> : null}
         </div>
       );
     }
-    return (
-      <div className="container w-100 h-100 align-items-center">
-        {this.state.loading === true ? (
-          <h1>Loading...</h1>
-        ) : (
-          <>
-            <h1 className="text-center h-100">YOUTUBE CLONE</h1>
-            <TitleBar
-              handleChange={(ev) => this.handleChange(ev)}
-              handleSubmit={(ev) => this.handleSubmit(ev)}
-            />
-            {this.state.showResultsContainer === true ? (
-              <SearchResultsContainer
-                videos={this.state.youTubeVideoData}
-                setPlayer={(id) => this.setPlayer(id)}
-              />
-            ) : null}
-          </>
-        )}
-        {this.state.showMainView === true ? <MainView videoId={this.state.activeVideoId} /> : null}
-      </div>
-    );
   }
 }
-
 export default App;
