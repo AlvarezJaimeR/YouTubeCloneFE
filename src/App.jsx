@@ -33,8 +33,8 @@ class App extends Component {
       relatedVideosData: [],
       loading: true,
       text: "",
-      videoId: "",
       commentInfo: [],
+      textReply:'',
     };
   }
 
@@ -71,11 +71,11 @@ class App extends Component {
       const response = {
         data: {
           items: [
-            { id: { videoId: 123456 } },
-            { id: { videoId: 1234567 } },
-            { id: { videoId: 12345678 } },
-            { id: { videoId: 123456789 } },
-            { id: { videoId: 1234567890 } },
+            { id: { videoId: '123456' } },
+            { id: { videoId: '1234567' } },
+            { id: { videoId: '12345678' } },
+            { id: { videoId: '123456789' } },
+            { id: { videoId: '1234567890' } },
           ],
         },
       };
@@ -104,11 +104,11 @@ class App extends Component {
       const response = {
         data: {
           items: [
-            { id: { videoId: 1234 } },
-            { id: { videoId: 12345 } },
-            { id: { videoId: 123456 } },
-            { id: { videoId: 1234567 } },
-            { id: { videoId: 12345678 } },
+            { id: { videoId: '1234' } },
+            { id: { videoId: '12345' } },
+            { id: { videoId: '123456' } },
+            { id: { videoId: '1234567' } },
+            { id: { videoId: '12345678' } },
           ],
         },
       };
@@ -152,6 +152,7 @@ class App extends Component {
         console.log("get comment", info);
         this.setState({
           commentInfo: info,
+          text: '',
         });
       })
       .catch((err) => {
@@ -170,7 +171,16 @@ class App extends Component {
       });
   }
 
-  //post Reply
+  postReply(reply) {
+    axios
+      .post("http://localhost:5000/api/comments/replies", reply)
+      .then((res) => {
+        console.log("post reply", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -178,12 +188,13 @@ class App extends Component {
       case "comment":
         console.log("comment", event);
         console.log(this.state.text);
-        console.log(this.state.videoId);
+        console.log(this.state.activeVideoId);
         const comment = {
           text: this.state.text,
           videoId: this.state.activeVideoId,
-        };
+        }
         this.postComments(comment);
+        this.getComments();
         break;
       case "search":
         if (this.state.showResultsContainer === false) {
@@ -196,6 +207,15 @@ class App extends Component {
           search: this.state.search,
         });
         this.searchYouTubeVideos();
+        break;
+      case "reply":
+        console.log("reply", event);
+        console.log(this.state.textReply);
+        const reply = {
+          text: this.state.textReply,
+        }
+        this.postReply(reply);
+        this.getComments();
         break;
 
       default:
@@ -283,6 +303,8 @@ class App extends Component {
             postComments={this.postComments}
             text={this.state.text}
             commentInfo={this.state.commentInfo}
+            postReply={this.postReply}
+            textReply={this.state.textReply}
           />
         ) : null}
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './ShowComments.css';
+import TextContainer from '../TextContainer/TextContainer';
 
 const ShowComments = (props) => {
     console.log('show comments', props)
@@ -22,6 +23,9 @@ const ShowComments = (props) => {
                         </div>
                         <div className='video-text'>
                             {video.text} 
+                        </div>
+                        <div>
+                            <TextContainer />
                         </div>
                     </div>)}
             </div>

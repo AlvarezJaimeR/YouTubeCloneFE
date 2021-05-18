@@ -23,15 +23,19 @@ const MainView = (props) => {
       </div>
       <div className="row row-cols-1">
         <div className="row">
-          <ShowComments currentVideo={props.videoId} commentInfo={props.commentInfo} />
+          <ShowComments currentVideo={props.videoId} commentInfo={props.commentInfo} 
+            handleSubmit={(e) => props.handleSubmit(e)}
+            handleChange={(e) => props.handleChange(e)}
+            postReply={props.postReply}
+            textReply={props.textReply}/>
         </div>
-        <CommentContainer
-          handleSubmit={(e) => props.handleSubmit(e)}
-          handleChange={(e) => props.handleChange(e)}
-          postComments={props.postComments}
-          text={props.text}
-          videoId={props.videoId}
-        />
+          <CommentContainer
+            handleSubmit={(e) => props.handleSubmit(e)}
+            handleChange={(e) => props.handleChange(e)}
+            postComments={props.postComments}
+            text={props.text}
+            videoId={props.videoId}
+          />
       </div>
     </div>
   );
