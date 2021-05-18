@@ -28,28 +28,29 @@ class App extends Component {
       activeVideoComments: [],
       // apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
       // apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
-      apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y", //Plan C
+      // apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y", //Plan C
       youTubeVideoData: [],
       relatedVideosData: [],
       loading: true,
       text: "",
       videoId: "",
-      commentInfo: '',
+      commentInfo: [],
     };
   }
 
   async componentDidMount() {
     this.getComments();
-    await this.randomSearch();
-    this.searchYouTubeVideos();
+    // await this.randomSearch();
+    // this.searchYouTubeVideos();
+    this.testingYouTubeSearch();
   }
 
   randomSearch() {
-    const randomSearch = this.state.starterSearches[Math.floor(Math.random() * this.state.starterSearches.length)];
+    const randomSearch =
+      this.state.starterSearches[Math.floor(Math.random() * this.state.starterSearches.length)];
     console.log(randomSearch);
     this.setState({
-      //search: randomSearch
-      search:'pokemon'
+      search: randomSearch,
     });
   }
 
@@ -59,6 +60,71 @@ class App extends Component {
       this.setState({
         youTubeVideoData: response.data,
         loading: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getTestDataVideos() {
+    return new Promise((res, rej) => {
+      const response = {
+        data: {
+          items: [
+            { id: { videoId: 123456 } },
+            { id: { videoId: 1234567 } },
+            { id: { videoId: 12345678 } },
+            { id: { videoId: 123456789 } },
+            { id: { videoId: 1234567890 } },
+          ],
+        },
+      };
+      if (response != null) {
+        res(response);
+      } else {
+        rej(new Error(`Trash`));
+      }
+    });
+  }
+
+  async testingYouTubeSearch() {
+    try {
+      const response = await this.getTestDataVideos();
+      this.setState({
+        youTubeVideoData: response.data,
+        loading: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getTestDataRelatedVideos() {
+    return new Promise((res, rej) => {
+      const response = {
+        data: {
+          items: [
+            { id: { videoId: 1234 } },
+            { id: { videoId: 12345 } },
+            { id: { videoId: 123456 } },
+            { id: { videoId: 1234567 } },
+            { id: { videoId: 12345678 } },
+          ],
+        },
+      };
+      if (response != null) {
+        res(response);
+      } else {
+        rej(new Error(`Trash`));
+      }
+    });
+  }
+
+  async setTestRelatedVideosContent() {
+    try {
+      const response = await this.getTestDataRelatedVideos();
+      this.setState({
+        relatedVideosData: response.data,
       });
     } catch (error) {
       console.log(error);
@@ -83,7 +149,7 @@ class App extends Component {
       .get("http://localhost:5000/api/comments/")
       .then((res) => {
         const info = res.data;
-        console.log('get comment', info);
+        console.log("get comment", info);
         this.setState({
           commentInfo: info,
         });
@@ -154,7 +220,8 @@ class App extends Component {
     this.setState({
       activeVideoId: videoID,
     });
-    await this.setRelatedVideosContent();
+    // await this.setRelatedVideosContent();
+    await this.setTestRelatedVideosContent();
     this.toggleView("showMainView");
     this.toggleView("showResultsContainer");
   }
