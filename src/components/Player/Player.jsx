@@ -3,7 +3,6 @@ import React from "react";
 const Player = (props) => {
   return (
     <iframe
-      className={props.className}
       id={props.id}
       type="text/html"
       width={props.width}

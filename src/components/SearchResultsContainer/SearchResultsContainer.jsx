@@ -7,19 +7,19 @@ const SearchResultsContainer = (props) => {
     <div className="container">
       <div className="row row-cols-3 justify-content-center">
         {videos.map((video) => (
-          <button
-            key={video.id.videoId}
-            className="btn btn-outline-primary col"
-            onClick={() => props.setPlayer(video.id.videoId)}
-          >
-            <img
-              // key={video.id.videoId}
-              src={`https://img.youtube.com/vi/${video.id.videoId}/mqdefault.jpg`}
-              // className="col"
-              width="285"
-              height="150"
-            />
-          </button>
+          <div className="col" key={video.id.videoId}>
+            <button
+              key={video.id.videoId}
+              className="btn btn-outline-primary col"
+              onClick={() => props.setPlayer(video.id.videoId)}
+            >
+              <img
+                src={`https://img.youtube.com/vi/${video.id.videoId}/mqdefault.jpg`}
+                width="285"
+                height="150"
+              />
+            </button>
+          </div>
         ))}
       </div>
     </div>
