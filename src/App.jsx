@@ -10,13 +10,27 @@ class App extends Component {
     super(props);
     this.state = {
       videoInfo: [],
-      search: "Pokemon",
+      starterSearches: [
+        "pokemon",
+        "warhammer 40k",
+        "Mass Effect",
+        "Skateboarding",
+        "Longboarding",
+        "Scooters",
+        "Hoverboard",
+        "Cars",
+        "Gaming",
+      ],
+      search: "",
       showResultsContainer: true,
       showMainView: false,
       activeVideoId: "",
-      apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
+      activeVideoComments: [],
+      // apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
+      // apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
+      apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y", //Plan C
       youTubeVideoData: [],
-      relatedVideos: [],
+      relatedVideosData: [],
       loading: true,
       text: "",
       videoId: "",
@@ -25,7 +39,18 @@ class App extends Component {
 
   componentDidMount() {
     this.getComments();
+    this.randomSearch();
     this.searchYouTubeVideos();
+  }
+
+  randomSearch() {
+    const searchIndex = Math.trunc(Math.random() * this.state.starterSearches.length);
+    console.log(searchIndex);
+    const randomAnswer = this.state.starterSearches[searchIndex];
+    console.log(randomAnswer);
+    this.setState({
+      search: randomAnswer,
+    });
   }
 
   async searchYouTubeVideos() {
@@ -124,12 +149,41 @@ class App extends Component {
     });
   }
 
-  setPlayer(videoID) {
+  async setPlayer(videoID) {
     this.setState({
       activeVideoId: videoID,
     });
+    await this.setRelatedVideosContent();
     this.toggleView("showMainView");
     this.toggleView("showResultsContainer");
+  }
+
+  async setRelatedVideosContent() {
+    try {
+      const response = await this.getYouTubeVideosPromise(this.state.search, this.state.apiKey);
+      this.setState({
+        relatedVideosData: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getRelatedVideosPromise(apiKey) {
+    return new Promise((res, rej) => {
+      const response = axios.get(
+        `https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${this.state.activeVideoId}&type=video&key=${apiKey}`
+      );
+      if (response != null) {
+        res(response);
+      } else {
+        rej(
+          new Error(
+            `Unable to access related video data using video ID: ${this.state.activeVideoId} & API Key ${apiKey} `
+          )
+        );
+      }
+    });
   }
 
   render() {
@@ -157,6 +211,7 @@ class App extends Component {
             videoId={this.state.activeVideoId}
             handleSubmit={(e) => this.handleSubmit(e)}
             handleChange={(e) => this.handleChange(e)}
+            relatedVideosData={this.state.relatedVideosData}
             videoData={this.state.youTubeVideoData}
             postComments={this.postComments}
             text={this.state.text}

@@ -1,13 +1,25 @@
 import React from "react";
-import RelatedVideo from "../RelatedVideo/RelatedVideo";
 
 const RelatedVideos = (props) => {
+  const relatedVideos = props.relatedVideos.items;
+  console.log(relatedVideos);
   return (
     <div className="container justify-content-center">
       <div className="column">
-        <div className="">Video 1</div>
-        <div className="">Video 2</div>
-        <div className="">Video 3</div>
+        {relatedVideos.map((video) => (
+          <div key={video.id.videoId} className="thumbnail">
+            <button
+              className="btn btn-outline-primary col"
+              onClick={() => props.setPlayer(video.id.videoId)}
+            >
+              <img
+                src={`https://img.youtube.com/vi/${video.id.videoId}/mqdefault.jpg`}
+                width="200"
+                height="100"
+              />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
