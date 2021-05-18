@@ -8,10 +8,10 @@ const CommentContainer = (props) => {
                     handleChange={(e)=>props.handleChange(e)} 
                         postComments={props.postComments} name='comment'
                         videoId={props.videoId} text={props.text}/>
-            <TextContainer title='Reply' handleSubmit={(e)=>props.handleSubmit(e)} 
+            {/* <TextContainer title='Reply' handleSubmit={(e)=>props.handleSubmit(e)} 
                     handleChange={(e)=>props.handleChange(e)} 
                         postComments={props.postComments} name='reply'
-                        videoId={props.videoId} text={props.text}/>
+                        videoId={props.videoId} text={props.text}/> */}
         </div>
     );
 }

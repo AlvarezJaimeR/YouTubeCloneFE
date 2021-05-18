@@ -24,7 +24,6 @@ const MainView = (props) => {
         <CommentContainer
           handleSubmit={(e) => props.handleSubmit(e)}
           handleChange={(e) => props.handleChange(e)}
-          videoData={props.youTubeVideoData}
           postComments={props.postComments}
           text={props.text}
           videoId={props.videoId}

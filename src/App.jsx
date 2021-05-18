@@ -21,7 +21,7 @@ class App extends Component {
         "Cars",
         "Gaming",
       ],
-      search: "",
+      search: "pokemon",
       showResultsContainer: true,
       showMainView: false,
       activeVideoId: "",
@@ -37,19 +37,18 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getComments();
-    this.randomSearch();
+    await this.randomSearch();
     this.searchYouTubeVideos();
   }
 
   randomSearch() {
-    const searchIndex = Math.trunc(Math.random() * this.state.starterSearches.length);
-    console.log(searchIndex);
-    const randomAnswer = this.state.starterSearches[searchIndex];
-    console.log(randomAnswer);
+    const randomSearch = this.state.starterSearches[Math.floor(Math.random() * this.state.starterSearches.length)];
+    console.log(randomSearch);
     this.setState({
-      search: randomAnswer,
+      //search: randomSearch
+      search:'pokemon'
     });
   }
 
@@ -114,7 +113,7 @@ class App extends Component {
         console.log(this.state.videoId);
         const comment = {
           text: this.state.text,
-          videoId: this.state.videoId,
+          videoId: this.state.activeVideoId,
         };
         this.postComments(comment);
         break;
