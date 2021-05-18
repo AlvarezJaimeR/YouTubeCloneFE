@@ -10,14 +10,14 @@ const TextContainer = (props) => {
                     <input type="text" name="text" value={props.text}
                     onChange={(event)=> props.handleChange(event)} />
                 </div>
-                <div>
+                <div className='d-none'>
                     <label>Video Id</label>
                     <input type="text" name="videoId" value ={props.videoId}
                     onChange={(event) => props.handleChange(event)} />
                 </div>
                 <div>
                     <button className='btn btn-danger' type = 'submit'>
-                        Add Comment
+                        Add {props.name}
                     </button>
                 </div>
             </form>
