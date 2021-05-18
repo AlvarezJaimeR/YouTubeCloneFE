@@ -14,7 +14,8 @@ class App extends Component {
       showResultsContainer: true,
       showMainView: false,
       activeVideoId: "",
-      apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
+      //apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ",
+      apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y",
       youTubeVideoData: [],
       loading: true,
       text: "",
@@ -132,22 +133,14 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.loading === true) {
-      return (
-        <div>
-            <h1>Loading...</h1>
-        </div>
-      )
-    }
-    if (this.state.loading === false){
-      return (
-        <div className="container w-100 h-100 align-items-center">
-          {this.state.loading === true ? (
-            <h1>Loading...</h1>
-          ) : (
-            <>
-              <h1 className="text-center h-100">YOUTUBE CLONE</h1>
-              <TitleBar
+    return (
+      <div className="container w-100 h-100 align-items-center">
+        {this.state.loading === true ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            <h1 className="text-center h-100">YOUTUBE CLONE</h1>
+            <TitleBar
                 handleChange={(ev) => this.handleChange(ev)}
                 handleSubmit={(ev) => this.handleSubmit(ev)}
               />
@@ -159,13 +152,14 @@ class App extends Component {
               ) : null}
             </>
           )}
-          {this.state.showMainView === true ? <MainView videoId={this.state.activeVideoId} 
+          {this.state.showMainView === true ? (
+          <MainView videoId={this.state.activeVideoId} 
             handleSubmit={(e)=>this.handleSubmit(e)} handleChange={(e)=>this.handleChange(e)} 
-            videoData={this.state.youTubeVideoData} postComments={this.postComments} 
-            text={this.state.text}/> : null}
-        </div>
-      );
-    }
-  }
+            postComments={this.postComments} text={this.state.text} 
+            /> 
+          ) : null}
+      </div>
+    );
+  }            
 }
 export default App;
