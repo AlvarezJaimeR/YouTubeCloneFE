@@ -2,6 +2,7 @@ import Player from "../Player/Player";
 import CommentContainer from "../CommentContainer/CommentContainer";
 import RelatedVideos from "../RelatedVideos/RelatedVideos";
 import ShowComments from '../ShowComments/ShowComments';
+import TextContainer from '../TextContainer/TextContainer';
 
 const MainView = (props) => {
   return (
@@ -27,6 +28,11 @@ const MainView = (props) => {
           currentVideo={props.videoId}
           commentInfo={props.commentInfo}
           />
+          <TextContainer title='Reply' 
+          handleSubmit={(e)=>props.handleSubmit(e)} 
+            handleChange={(e)=>props.handleChange(e)} 
+            postComments={props.postComments} name='reply'
+            videoId={props.videoId} text={props.text}/>
         </div>
           <CommentContainer
             handleSubmit={(e) => props.handleSubmit(e)}
