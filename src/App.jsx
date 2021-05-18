@@ -37,9 +37,9 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getComments();
-    this.randomSearch();
+    await this.randomSearch();
     this.searchYouTubeVideos();
   }
 
