@@ -34,6 +34,7 @@ class App extends Component {
       loading: true,
       text: "",
       videoId: "",
+      commentInfo: '',
     };
   }
 
@@ -82,6 +83,7 @@ class App extends Component {
       .get("http://localhost:5000/api/comments/")
       .then((res) => {
         const info = res.data;
+        console.log('get comment', info);
         this.setState({
           commentInfo: info,
         });
@@ -213,6 +215,7 @@ class App extends Component {
             relatedVideosData={this.state.relatedVideosData}
             postComments={this.postComments}
             text={this.state.text}
+            commentInfo={this.state.commentInfo}
           />
         ) : null}
       </div>
