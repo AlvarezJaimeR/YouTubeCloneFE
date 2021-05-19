@@ -34,11 +34,11 @@ class App extends Component {
       loading: true,
       text: "",
       commentInfo: [],
-      textReply:'',
+      textReply: "",
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.getComments();
     // await this.randomSearch();
     // this.searchYouTubeVideos();
@@ -71,11 +71,11 @@ class App extends Component {
       const response = {
         data: {
           items: [
-            { id: { videoId: '123456' } },
-            { id: { videoId: '1234567' } },
-            { id: { videoId: '12345678' } },
-            { id: { videoId: '123456789' } },
-            { id: { videoId: '1234567890' } },
+            { id: { videoId: "123456" } },
+            { id: { videoId: "1234567" } },
+            { id: { videoId: "12345678" } },
+            { id: { videoId: "123456789" } },
+            { id: { videoId: "1234567890" } },
           ],
         },
       };
@@ -104,11 +104,11 @@ class App extends Component {
       const response = {
         data: {
           items: [
-            { id: { videoId: '1234' } },
-            { id: { videoId: '12345' } },
-            { id: { videoId: '123456' } },
-            { id: { videoId: '1234567' } },
-            { id: { videoId: '12345678' } },
+            { id: { videoId: "1234" } },
+            { id: { videoId: "12345" } },
+            { id: { videoId: "123456" } },
+            { id: { videoId: "1234567" } },
+            { id: { videoId: "12345678" } },
           ],
         },
       };
@@ -134,7 +134,9 @@ class App extends Component {
   getYouTubeVideosPromise(searchString, apiKey) {
     return new Promise((res, rej) => {
       const response = axios.get(
-        `https://www.googleapis.com/youtube/v3/search?q=${searchString}&key=${apiKey}`
+        // `https://www.googleapis.com/youtube/v3/search?q=${searchString}&key=${apiKey}`
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${searchString}&key=${apiKey}`
+        // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&pageToken=CAkQAA&q=pokemon&key=[YOUR_API_KEY]
       );
       if (response != null) {
         res(response);
@@ -152,7 +154,7 @@ class App extends Component {
         console.log("get comment", info);
         this.setState({
           commentInfo: info,
-          text: '',
+          text: "",
         });
       })
       .catch((err) => {
@@ -192,7 +194,7 @@ class App extends Component {
         const comment = {
           text: this.state.text,
           videoId: this.state.activeVideoId,
-        }
+        };
         this.postComments(comment);
         this.getComments();
         break;
@@ -213,7 +215,7 @@ class App extends Component {
         console.log(this.state.textReply);
         const reply = {
           text: this.state.textReply,
-        }
+        };
         this.postReply(reply);
         this.getComments();
         break;
