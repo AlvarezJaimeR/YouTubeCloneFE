@@ -1,7 +1,7 @@
 import Player from "../Player/Player";
-import CommentContainer from "../CommentContainer/CommentContainer";
 import RelatedVideos from "../RelatedVideos/RelatedVideos";
 import ShowComments from "../ShowComments/ShowComments";
+import TextContainer from '../TextContainer/TextContainer';
 
 const MainView = (props) => {
   return (
@@ -23,20 +23,19 @@ const MainView = (props) => {
       </div>
       <div className="row row-cols-1">
         <div className="row">
-          <ShowComments currentVideo={props.videoId} commentInfo={props.commentInfo} 
+          <ShowComments currentVideo={props.videoId} 
+            commentInfo={props.commentInfo} 
             handleSubmit={(e) => props.handleSubmit(e)}
             handleChange={(e) => props.handleChange(e)}
-            postReply={props.postReply}
             text={props.text}
-            commentIndex={props.commentIndex}
             keepTrackOfCount={props.keepTrackOfCount}
             storeFilteredArray={props.storeFilteredArray}
           />
         </div>
-          <CommentContainer
+          <TextContainer
+            title='Comment'
             handleSubmit={(e) => props.handleSubmit(e)}
             handleChange={(e) => props.handleChange(e)}
-            postComments={props.postComments}
             text={props.text}
             videoId={props.videoId}
           />

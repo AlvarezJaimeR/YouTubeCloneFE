@@ -220,20 +220,27 @@ class App extends Component {
         console.log('preReplyPost array count:', this.state.commentArrayCount);
         console.log('preReplyPost comment info:', this.state.commentInfo);
         console.log(this.state.commentInfo[this.state.commentArrayCount]);
+        const commentInfo = this.state.commentInfo;
+        const filteredIdArray = commentInfo.filter((commentInfo) => commentInfo.videoId === this.state.activeVideoId);
+        console.log('filteredArray', filteredIdArray);
+        this.setState({
+          filteredArray: filteredIdArray
+        });
+        console.log('after setting state', this.state.filteredArray);
         this.postReply(reply);
         break;
-
       default:
         break;
     }
   }
 
   handleChange(event) {
+    console.log("handle change", event);
     event.persist();
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
+      this.setState({
+        [event.target.name]: event.target.value,
+      });
+    }
 
   toggleView(component) {
     this.setState({
@@ -321,10 +328,8 @@ class App extends Component {
             handleSubmit={(e) => this.handleSubmit(e)}
             handleChange={(e) => this.handleChange(e)}
             relatedVideosData={this.state.relatedVideosData}
-            //postComments={this.postComments}
             text={this.state.text}
             commentInfo={this.state.commentInfo}
-            //postReply={this.postReply}
             commentIndex={this.state.commentArrayCount}
             keepTrackOfCount={this.keepTrackOfCount}
             storeFilteredArray={this.storeFilteredArray}
