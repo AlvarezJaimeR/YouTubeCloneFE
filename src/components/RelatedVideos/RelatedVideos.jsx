@@ -10,13 +10,9 @@ const RelatedVideos = (props) => {
           <div key={video.id.videoId} className="thumbnail">
             <button
               className="btn btn-outline-primary col"
-              onClick={() => props.setPlayer(video.id.videoId)}
+              onClick={() => props.updateActiveVideo(video)}
             >
-              <img
-                src={`https://img.youtube.com/vi/${video.id.videoId}/mqdefault.jpg`}
-                width="200"
-                height="100"
-              />
+              <img src={video.snippet.thumbnails.medium.url} width="200" height="100" />
             </button>
           </div>
         ))}

@@ -25,6 +25,8 @@ class App extends Component {
       showResultsContainer: true,
       showMainView: false,
       activeVideoId: "",
+      activeVideoTitle: "",
+      activeVideoDescription: "",
       activeVideoComments: [],
       // apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
       // apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
@@ -42,7 +44,7 @@ class App extends Component {
 
   componentDidMount() {
     this.getComments();
-    // await this.randomSearch();
+    this.randomSearch();
     // this.searchYouTubeVideos();
     this.testingYouTubeSearch();
   }
@@ -56,16 +58,23 @@ class App extends Component {
     });
   }
 
-  async searchYouTubeVideos() {
-    try {
-      const response = await this.getYouTubeVideosPromise(this.state.search, this.state.apiKey);
-      this.setState({
-        youTubeVideoData: response.data,
-        loading: false,
+  // `https://www.googleapis.com/youtube/v3/search?q=${searchString}&key=${apiKey}`
+  // `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${searchString}&key=${apiKey}`
+  // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&pageToken=CAkQAA&q=pokemon&key=[YOUR_API_KEY]
+  searchYouTubeVideos() {
+    axios
+      .get(
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${this.state.search}&key=${this.state.apiKey}`
+      )
+      .then((response) => {
+        this.setState({
+          youTubeVideoData: response.data,
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   getTestDataVideos() {
@@ -73,11 +82,124 @@ class App extends Component {
       const response = {
         data: {
           items: [
-            { id: { videoId: "123456" } },
-            { id: { videoId: "1234567" } },
-            { id: { videoId: "12345678" } },
-            { id: { videoId: "123456789" } },
-            { id: { videoId: "1234567890" } },
+            {
+              id: {
+                videoId: "1",
+              },
+              snippet: {
+                title: "1",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "12",
+              },
+              snippet: {
+                title: "12",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "123",
+              },
+              snippet: {
+                title: "123",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "1234",
+              },
+              snippet: {
+                title: "1234",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "12345",
+              },
+              snippet: {
+                title: "12345",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "123456",
+              },
+              snippet: {
+                title: "123456",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "1234567",
+              },
+              snippet: {
+                title: "1234567",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "12345678",
+              },
+              snippet: {
+                title: "12345678",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "123456789",
+              },
+              snippet: {
+                title: "123456789",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            ,
           ],
         },
       };
@@ -106,11 +228,58 @@ class App extends Component {
       const response = {
         data: {
           items: [
-            { id: { videoId: "1234" } },
-            { id: { videoId: "12345" } },
-            { id: { videoId: "123456" } },
-            { id: { videoId: "1234567" } },
-            { id: { videoId: "12345678" } },
+            {
+              id: {
+                videoId: "a",
+              },
+              snippet: {
+                title: "a",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "ab",
+              },
+              snippet: {
+                title: "ab",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "abc",
+              },
+              snippet: {
+                title: "abc",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
+            {
+              id: {
+                videoId: "abcd",
+              },
+              snippet: {
+                title: "abcd",
+                thumbnails: {
+                  medium: {
+                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
+                  },
+                },
+              },
+            },
           ],
         },
       };
@@ -131,21 +300,6 @@ class App extends Component {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  getYouTubeVideosPromise(searchString, apiKey) {
-    return new Promise((res, rej) => {
-      const response = axios.get(
-        // `https://www.googleapis.com/youtube/v3/search?q=${searchString}&key=${apiKey}`
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${searchString}&key=${apiKey}`
-        // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&pageToken=CAkQAA&q=pokemon&key=[YOUR_API_KEY]
-      );
-      if (response != null) {
-        res(response);
-      } else {
-        rej(new Error(`Unable to access data using Search: ${searchString} & API Key ${apiKey} `));
-      }
-    });
   }
 
   getComments() {
@@ -212,9 +366,6 @@ class App extends Component {
             showMainView: false,
           });
         }
-        this.setState({
-          search: this.state.search,
-        });
         this.searchYouTubeVideos();
         break;
       case "reply":
@@ -257,14 +408,25 @@ class App extends Component {
     });
   }
 
-  async setPlayer(videoID) {
+  async setPlayer(video) {
     this.setState({
-      activeVideoId: videoID,
+      activeVideoId: video.id.videoId,
+      activeVideoTitle: video.snippet.title,
+      activeVideoDescription: video.snippet.description,
     });
     // await this.setRelatedVideosContent();
     await this.setTestRelatedVideosContent();
     this.toggleView("showMainView");
     this.toggleView("showResultsContainer");
+  }
+
+  updateActiveVideo(video) {
+    this.setState({
+      activeVideoId: video.id.videoId,
+      activeVideoTitle: video.snippet.title,
+      activeVideoDescription: video.snippet.description,
+    });
+    this.setRelatedVideosContent();
   }
 
   async setRelatedVideosContent() {
@@ -281,7 +443,7 @@ class App extends Component {
   getRelatedVideosPromise(apiKey) {
     return new Promise((res, rej) => {
       const response = axios.get(
-        `https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${this.state.activeVideoId}&type=video&key=${apiKey}`
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&relatedToVideoId=${this.state.activeVideoId}&type=video&key=${apiKey}`
       );
       if (response != null) {
         res(response);
@@ -311,29 +473,44 @@ class App extends Component {
     console.log("Keep Track", this.state.commentArrayCount);
   }
 
+  goHome() {
+    this.setState({
+      showResultsContainer: true,
+      showMainView: false,
+    });
+  }
+
   render() {
     return (
       <div className="container w-100 h-100 align-items-center">
         {this.state.loading === true ? (
           <h1>Loading...</h1>
         ) : (
-          <>
-            <h1 className="text-center h-100">YOUTUBE CLONE</h1>
+          <div className="container" id="title">
+            <h1 className="text-center h-100" id="appName">
+              YOUTUBE CLONE
+            </h1>
             <TitleBar
               handleChange={(ev) => this.handleChange(ev)}
               handleSubmit={(ev) => this.handleSubmit(ev)}
+              goHome={() => this.goHome()}
             />
+            <br />
+            <br />
             {this.state.showResultsContainer === true ? (
               <SearchResultsContainer
                 videos={this.state.youTubeVideoData}
-                setPlayer={(id) => this.setPlayer(id)}
+                setPlayer={(video) => this.setPlayer(video)}
               />
             ) : null}
-          </>
+          </div>
         )}
         {this.state.showMainView === true ? (
           <MainView
-            videoId={this.state.activeVideoId}
+            updateActiveVideo={(video) => this.updateActiveVideo(video)}
+            activeVideoId={this.state.activeVideoId}
+            activeVideoTitle={this.state.activeVideoTitle}
+            activeVideoDescription={this.state.activeVideoDescription}
             handleSubmit={(e) => this.handleSubmit(e)}
             handleChange={(e) => this.handleChange(e)}
             relatedVideosData={this.state.relatedVideosData}

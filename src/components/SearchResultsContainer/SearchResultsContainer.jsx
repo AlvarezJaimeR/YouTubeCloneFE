@@ -11,14 +11,16 @@ const SearchResultsContainer = (props) => {
             <button
               key={video.id.videoId}
               className="btn btn-outline-primary col"
-              onClick={() => props.setPlayer(video.id.videoId)}
+              onClick={() => props.setPlayer(video)}
             >
               <img
-                src={`https://img.youtube.com/vi/${video.id.videoId}/mqdefault.jpg`}
+                // src={`https://img.youtube.com/vi/${video.id.videoId}/mqdefault.jpg`}
+                src={video.snippet.thumbnails.medium.url}
                 width="285"
                 height="150"
               />
             </button>
+            <p className="text-center">{video.snippet.title}</p>
           </div>
         ))}
       </div>

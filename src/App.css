@@ -4,6 +4,24 @@ body {
   margin: 0;
   height: 100%;
 }
+#appName {
+  background-color: rgb(228, 29, 69);
+  color: rgb(255, 255, 255);
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+#title {
+  margin-top: 100px;
+}
+
+#titleBar {
+  margin-top: 50px;
+}
 
 .App {
   text-align: center;
