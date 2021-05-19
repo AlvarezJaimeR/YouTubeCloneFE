@@ -29,7 +29,7 @@ class App extends Component {
       activeVideoDescription: "",
       activeVideoComments: [],
       // apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
-      // apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
+      apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
       // apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y", //Plan C
       youTubeVideoData: [],
       relatedVideosData: [],
@@ -44,9 +44,9 @@ class App extends Component {
 
   componentDidMount() {
     this.getComments();
-    this.randomSearch();
-    // this.searchYouTubeVideos();
-    this.testingYouTubeSearch();
+    // this.randomSearch();
+    this.searchYouTubeVideos();
+    // this.testingYouTubeSearch();
   }
 
   randomSearch() {
@@ -414,24 +414,24 @@ class App extends Component {
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    // await this.setRelatedVideosContent();
-    await this.setTestRelatedVideosContent();
+    await this.setRelatedVideosContent(video.id.videoId);
+    // await this.setTestRelatedVideosContent();
     this.toggleView("showMainView");
     this.toggleView("showResultsContainer");
   }
 
-  updateActiveVideo(video) {
+  async updateActiveVideo(video) {
     this.setState({
       activeVideoId: video.id.videoId,
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    this.setRelatedVideosContent();
+    await this.setRelatedVideosContent(video.id.videoId);
   }
 
-  async setRelatedVideosContent() {
+  async setRelatedVideosContent(id) {
     try {
-      const response = await this.getYouTubeVideosPromise(this.state.search, this.state.apiKey);
+      const response = await this.getRelatedVideosPromise(id, this.state.apiKey);
       this.setState({
         relatedVideosData: response.data,
       });
@@ -440,10 +440,10 @@ class App extends Component {
     }
   }
 
-  getRelatedVideosPromise(apiKey) {
+  getRelatedVideosPromise(id, apiKey) {
     return new Promise((res, rej) => {
       const response = axios.get(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&relatedToVideoId=${this.state.activeVideoId}&type=video&key=${apiKey}`
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&relatedToVideoId=${id}&type=video&key=${apiKey}`
       );
       if (response != null) {
         res(response);
@@ -480,6 +480,21 @@ class App extends Component {
     });
   }
 
+  changePage(tokenID) {
+    axios
+      .get(
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&pageToken=${tokenID}&q=${this.state.search}&key=${this.state.apiKey}`
+      )
+      .then((response) => {
+        this.setState({
+          youTubeVideoData: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <div className="container w-100 h-100 align-items-center">
@@ -501,6 +516,7 @@ class App extends Component {
               <SearchResultsContainer
                 videos={this.state.youTubeVideoData}
                 setPlayer={(video) => this.setPlayer(video)}
+                changePage={(id) => this.changePage(id)}
               />
             ) : null}
           </div>

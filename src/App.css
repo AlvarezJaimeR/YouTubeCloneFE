@@ -23,6 +23,10 @@ body {
   margin-top: 50px;
 }
 
+.indexButton {
+  margin-top: 20%;
+}
+
 .App {
   text-align: center;
 }

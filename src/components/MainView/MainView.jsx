@@ -13,10 +13,10 @@ const MainView = (props) => {
             id={props.activeVideoId}
             width="650"
             height="450"
-            link={
-              "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
-            }
-            // link={`http://www.youtube.com/embed/${props.activeVideoId}?enablejsapi=1&origin=http://example.com`}
+            // link={
+            // "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
+            // }
+            link={`http://www.youtube.com/embed/${props.activeVideoId}?enablejsapi=1&origin=http://example.com`}
           />
         </div>
         <div className="col-4">
