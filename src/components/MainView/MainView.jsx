@@ -27,7 +27,11 @@ const MainView = (props) => {
             handleSubmit={(e) => props.handleSubmit(e)}
             handleChange={(e) => props.handleChange(e)}
             postReply={props.postReply}
-            textReply={props.textReply}/>
+            text={props.text}
+            commentIndex={props.commentIndex}
+            keepTrackOfCount={props.keepTrackOfCount}
+            storeFilteredArray={props.storeFilteredArray}
+          />
         </div>
           <CommentContainer
             handleSubmit={(e) => props.handleSubmit(e)}

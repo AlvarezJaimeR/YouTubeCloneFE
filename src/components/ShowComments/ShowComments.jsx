@@ -11,7 +11,8 @@ const ShowComments = (props) => {
 /*     const commentIdArray = props.commentInfo.map(video => video.videoId);
     console.log(commentIdArray); */
     const filteredIdArray = commentInfo.filter((commentInfo) => commentInfo.videoId === currentVideoId);
-    console.log(filteredIdArray);
+    console.log('filteredArray', filteredIdArray);
+    //props.storeFilteredArray(filteredIdArray);
     return (
         <div>
             <h1>Show Comments</h1>
@@ -25,7 +26,13 @@ const ShowComments = (props) => {
                             {video.text} 
                         </div>
                         <div>
-                            <TextContainer />
+                            <TextContainer title='Reply' handleSubmit={(e)=>props.handleSubmit(e)} 
+                                handleChange={(e)=>props.handleChange(e)} 
+                                postReply={props.postReply} name='reply'
+                                videoId={props.videoId} text={props.text}
+                            />
+                            {console.log('current index', props.commentIndex)}
+{/*                             {props.keepTrackOfCount(props.commentIndex)} */}
                         </div>
                     </div>)}
             </div>

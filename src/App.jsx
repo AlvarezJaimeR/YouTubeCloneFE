@@ -34,11 +34,13 @@ class App extends Component {
       loading: true,
       text: "",
       commentInfo: [],
-      textReply:'',
+      commentArrayCount: 0,
+      filteredArray: [],
     };
+    this.storeFilteredArray=this.storeFilteredArray.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.getComments();
     // await this.randomSearch();
     // this.searchYouTubeVideos();
@@ -173,7 +175,7 @@ class App extends Component {
 
   postReply(reply) {
     axios
-      .post("http://localhost:5000/api/comments/replies", reply)
+      .post("http://localhost:5000/api/comments/"+this.state.commentInfo[this.state.commentArrayCount]._id+ "/replies", reply)
       .then((res) => {
         console.log("post reply", res);
       })
@@ -210,12 +212,15 @@ class App extends Component {
         break;
       case "reply":
         console.log("reply", event);
-        console.log(this.state.textReply);
+        console.log(this.state.text);
+        console.log('switch reply commentId:', this.state.commentArrayCount);
         const reply = {
-          text: this.state.textReply,
+          text: this.state.text,
         }
+        console.log('preReplyPost array count:', this.state.commentArrayCount);
+        console.log('preReplyPost comment info:', this.state.commentInfo);
+        console.log(this.state.commentInfo[this.state.commentArrayCount]);
         this.postReply(reply);
-        this.getComments();
         break;
 
       default:
@@ -274,6 +279,22 @@ class App extends Component {
     });
   }
 
+  storeFilteredArray(array){
+    this.setState({
+      filteredArray: array
+    });
+    console.log('after filter', this.state.filteredArray);
+  }
+
+  keepTrackOfCount(index){
+    let tempCommentIndex = index;
+    tempCommentIndex ++;
+    this.setState({
+      commentArrayCount: tempCommentIndex
+    })
+    console.log('Keep Track', this.state.commentArrayCount);
+  }
+
   render() {
     return (
       <div className="container w-100 h-100 align-items-center">
@@ -300,11 +321,13 @@ class App extends Component {
             handleSubmit={(e) => this.handleSubmit(e)}
             handleChange={(e) => this.handleChange(e)}
             relatedVideosData={this.state.relatedVideosData}
-            postComments={this.postComments}
+            //postComments={this.postComments}
             text={this.state.text}
             commentInfo={this.state.commentInfo}
-            postReply={this.postReply}
-            textReply={this.state.textReply}
+            //postReply={this.postReply}
+            commentIndex={this.state.commentArrayCount}
+            keepTrackOfCount={this.keepTrackOfCount}
+            storeFilteredArray={this.storeFilteredArray}
           />
         ) : null}
       </div>
