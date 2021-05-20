@@ -37,13 +37,14 @@ const MainView = (props) => {
       <div className="row row-cols-1">
         <div className="row">
           <ShowComments
-            currentVideo={props.activeVideoId}
+            videoId={props.activeVideoId}
             commentInfo={props.commentInfo}
             handleSubmit={(e) => props.handleSubmit(e)}
             handleChange={(e) => props.handleChange(e)}
             text={props.text}
             keepTrackOfCount={props.keepTrackOfCount}
             storeFilteredArray={props.storeFilteredArray}
+            postReply={props.postReply}
           />
         </div>
         <TextContainer

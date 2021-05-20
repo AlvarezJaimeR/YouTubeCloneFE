@@ -29,7 +29,7 @@ class App extends Component {
       activeVideoDescription: "",
       activeVideoComments: [],
       // apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
-      apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
+      // apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
       // apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y", //Plan C
       youTubeVideoData: [],
       relatedVideosData: [],
@@ -39,14 +39,14 @@ class App extends Component {
       commentArrayCount: 0,
       filteredArray: [],
     };
-    this.storeFilteredArray = this.storeFilteredArray.bind(this);
+    this.postReply=this.postReply.bind(this);
   }
 
   componentDidMount() {
     this.getComments();
     // this.randomSearch();
-    this.searchYouTubeVideos();
-    // this.testingYouTubeSearch();
+    // this.searchYouTubeVideos();
+    this.testingYouTubeSearch();
   }
 
   randomSearch() {
@@ -329,14 +329,18 @@ class App extends Component {
       });
   }
 
-  postReply(reply) {
+  postReply(reply, index) {
+    const filteredIdArray = this.state.commentInfo.filter(
+        (comment) => comment.videoId === this.state.activeVideoId
+      );
+        console.log("filteredArray", filteredIdArray);
+        console.log('post reply index', index);
+        console.log('post reply', reply);
     axios
       .post(
-        "http://localhost:5000/api/comments/" +
-          this.state.commentInfo[this.state.commentArrayCount]._id +
-          "/replies",
-        reply
-      )
+        "http://localhost:5000/api/comments/"+
+          filteredIdArray[index]._id+
+          "/replies", reply)
       .then((res) => {
         console.log("post reply", res);
       })
@@ -414,8 +418,8 @@ class App extends Component {
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    await this.setRelatedVideosContent(video.id.videoId);
-    // await this.setTestRelatedVideosContent();
+    // await this.setRelatedVideosContent(video.id.videoId);
+    await this.setTestRelatedVideosContent();
     this.toggleView("showMainView");
     this.toggleView("showResultsContainer");
   }
@@ -426,7 +430,8 @@ class App extends Component {
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    await this.setRelatedVideosContent(video.id.videoId);
+    //await this.setRelatedVideosContent(video.id.videoId);
+    await this.setTestRelatedVideosContent();
   }
 
   async setRelatedVideosContent(id) {
@@ -535,6 +540,7 @@ class App extends Component {
             commentIndex={this.state.commentArrayCount}
             keepTrackOfCount={this.keepTrackOfCount}
             storeFilteredArray={this.storeFilteredArray}
+            postReply={this.postReply}
           />
         ) : null}
       </div>
