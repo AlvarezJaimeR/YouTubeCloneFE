@@ -305,7 +305,6 @@ class App extends Component {
       .get("http://localhost:5000/api/comments/")
       .then((res) => {
         const info = res.data;
-        console.log("get comment", info);
         this.setState({
           commentInfo: info,
           text: "",

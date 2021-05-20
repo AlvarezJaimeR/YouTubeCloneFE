@@ -2,7 +2,6 @@ import React from "react";
 
 const RelatedVideos = (props) => {
   const relatedVideos = props.relatedVideos.items;
-  console.log(relatedVideos);
   return (
     <div className="container justify-content-center">
       <div className="column">
