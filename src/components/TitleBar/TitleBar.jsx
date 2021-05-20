@@ -1,35 +1,53 @@
 import React from "react";
+import "./TitleBar.css";
+
 const TitleBar = (props) => {
   return (
     <div className="container" id="titleBar">
-      <div className="row justify-content-md-center">
-        <div className="col-1">
-          <button className="btn btn-outline-dark" type="button" onClick={() => props.goHome()}>
-            Home
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="">
+            {">"}
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
           </button>
-        </div>
-        <div className="col-6">
-          <div className="container-fluid w-100">
-            <form
-              className="d-flex w-100"
-              name="search"
-              onSubmit={(event) => props.handleSubmit(event)}
-            >
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">
+                  FouTube
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="" onClick={() => props.goHome()}>
+                  Home
+                </a>
+              </li>
+            </ul>
+            <form class="d-flex">
               <input
-                className="form-control"
+                class="form-control me-2"
                 type="search"
                 name="search"
                 placeholder="Search"
                 aria-label="Search"
-                onChange={(event) => props.handleChange(event)}
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button class="btn btn-outline-success" type="submit">
                 Search
               </button>
             </form>
           </div>
         </div>
-      </div>
+      </nav>
     </div>
   );
 };

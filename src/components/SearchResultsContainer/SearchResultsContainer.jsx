@@ -8,20 +8,17 @@ const SearchResultsContainer = (props) => {
     <div className="container">
       <div className="row row-cols-3 justify-content-center">
         <div className="col-1 indexButton">
-          <button
-            className="btn btn-outline-danger"
-            onClick={() => props.changePage(previousIndex)}
-          >
-            Previous Page
+          <button className="btn btn-dark" onClick={() => props.changePage(previousIndex)}>
+            Back
           </button>
         </div>
         <div className="col-10">
-          <div className="row row-cols-3 justify-content-center">
+          <div className="row row-cols-auto justify-content-center">
             {videos.map((video) => (
               <div className="col" key={video.id.videoId}>
                 <button
                   key={video.id.videoId}
-                  className="btn btn-outline-primary col"
+                  className="btn btn-dark col"
                   onClick={() => props.setPlayer(video)}
                 >
                   <img
@@ -37,8 +34,8 @@ const SearchResultsContainer = (props) => {
           </div>
         </div>
         <div className="col-1 indexButton">
-          <button className="btn btn-outline-danger" onClick={() => props.changePage(nextIndex)}>
-            Next Page
+          <button className="btn btn-dark" onClick={() => props.changePage(nextIndex)}>
+            More Videos
           </button>
         </div>
       </div>

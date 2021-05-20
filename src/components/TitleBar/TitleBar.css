@@ -1,0 +1,11 @@
+.navbar-brand {
+  width: 50px;
+  text-align: center;
+  font-size: 12;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgb(0, 0, 0);
+  color: white !important;
+  background-color: rgb(207, 0, 41);
+}
