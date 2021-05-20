@@ -36,8 +36,6 @@ class App extends Component {
       loading: true,
       text: "",
       commentInfo: [],
-      commentArrayCount: 0,
-      filteredArray: [],
     };
     this.postReply=this.postReply.bind(this);
   }
@@ -85,7 +83,7 @@ class App extends Component {
             {
               id: {
                 videoId: "1",
-              },
+            },
               snippet: {
                 title: "1",
                 thumbnails: {
@@ -372,27 +370,6 @@ class App extends Component {
         }
         this.searchYouTubeVideos();
         break;
-      case "reply":
-        console.log("reply", event);
-        console.log(this.state.text);
-        console.log("switch reply commentId:", this.state.commentArrayCount);
-        const reply = {
-          text: this.state.text,
-        };
-        console.log("preReplyPost array count:", this.state.commentArrayCount);
-        console.log("preReplyPost comment info:", this.state.commentInfo);
-        console.log(this.state.commentInfo[this.state.commentArrayCount]);
-        const commentInfo = this.state.commentInfo;
-        const filteredIdArray = commentInfo.filter(
-          (commentInfo) => commentInfo.videoId === this.state.activeVideoId
-        );
-        console.log("filteredArray", filteredIdArray);
-        this.setState({
-          filteredArray: filteredIdArray,
-        });
-        console.log("after setting state", this.state.filteredArray);
-        this.postReply(reply);
-        break;
       default:
         break;
     }
@@ -462,22 +439,6 @@ class App extends Component {
     });
   }
 
-  storeFilteredArray(array) {
-    this.setState({
-      filteredArray: array,
-    });
-    console.log("after filter", this.state.filteredArray);
-  }
-
-  keepTrackOfCount(index) {
-    let tempCommentIndex = index;
-    tempCommentIndex++;
-    this.setState({
-      commentArrayCount: tempCommentIndex,
-    });
-    console.log("Keep Track", this.state.commentArrayCount);
-  }
-
   goHome() {
     this.setState({
       showResultsContainer: true,
@@ -537,9 +498,6 @@ class App extends Component {
             relatedVideosData={this.state.relatedVideosData}
             text={this.state.text}
             commentInfo={this.state.commentInfo}
-            commentIndex={this.state.commentArrayCount}
-            keepTrackOfCount={this.keepTrackOfCount}
-            storeFilteredArray={this.storeFilteredArray}
             postReply={this.postReply}
           />
         ) : null}

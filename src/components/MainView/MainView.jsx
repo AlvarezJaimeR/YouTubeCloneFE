@@ -42,8 +42,6 @@ const MainView = (props) => {
             handleSubmit={(e) => props.handleSubmit(e)}
             handleChange={(e) => props.handleChange(e)}
             text={props.text}
-            keepTrackOfCount={props.keepTrackOfCount}
-            storeFilteredArray={props.storeFilteredArray}
             postReply={props.postReply}
           />
         </div>

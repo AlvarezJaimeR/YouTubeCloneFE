@@ -1,20 +1,15 @@
 import React from "react";
 import "./ShowComments.css";
-import TextContainer from "../TextContainer/TextContainer";
 import TextContain from '../TextContain/TextContain';
 
 const ShowComments = (props) => {
-  console.log("show comments", props);
   const currentVideoId = props.videoId;
-  console.log(currentVideoId);
-  console.log(props.commentInfo);
   const commentInfo = props.commentInfo;
   /*     const commentIdArray = props.commentInfo.map(video => video.videoId);
     console.log(commentIdArray); */
   const filteredIdArray = commentInfo.filter(
     (commentInfo) => commentInfo.videoId === currentVideoId
   );
-  console.log("filteredArray", filteredIdArray);
   return (
     <div>
       <h1>Show Comments</h1>
