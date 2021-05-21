@@ -86,7 +86,7 @@ class App extends Component {
             {
               id: {
                 videoId: "1",
-            },
+              },
               snippet: {
                 title: "1",
                 thumbnails: {
@@ -335,10 +335,7 @@ class App extends Component {
         (comment) => comment.videoId === this.state.activeVideoId
       );
     axios
-      .post(
-        "http://localhost:5000/api/comments/"+
-          filteredIdArray[index]._id+
-          "/replies", reply)
+      .post("http://localhost:5000/api/comments/" + filteredIdArray[index]._id + "/replies", reply)
       .then((res) => {
         console.log("post reply", res);
         this.getComments();
@@ -500,14 +497,19 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container w-100 h-100 align-items-center">
+      <div className="container-fluid w-100 h-100">
         {this.state.loading === true ? (
           <h1>Loading...</h1>
         ) : (
           <div className="container" id="title">
-            <h1 className="text-center h-100" id="appName">
-              YOUTUBE CLONE
-            </h1>
+            <div className="row row-cols-2">
+              <h1 className="col text-center h-100" id="appLogo">
+                {">"}
+              </h1>
+              <h1 className="col h-100" id="appName">
+                FouTube
+              </h1>
+            </div>
             <TitleBar
               handleChange={(ev) => this.handleChange(ev)}
               handleSubmit={(ev) => this.handleSubmit(ev)}

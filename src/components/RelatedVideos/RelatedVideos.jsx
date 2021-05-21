@@ -7,10 +7,7 @@ const RelatedVideos = (props) => {
       <div className="column">
         {relatedVideos.map((video) => (
           <div key={video.id.videoId} className="thumbnail">
-            <button
-              className="btn btn-outline-primary col"
-              onClick={() => props.updateActiveVideo(video)}
-            >
+            <button className="btn btn-dark col" onClick={() => props.updateActiveVideo(video)}>
               <img src={video.snippet.thumbnails.medium.url} width="200" height="100" />
             </button>
           </div>

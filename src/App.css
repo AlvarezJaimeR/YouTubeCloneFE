@@ -3,16 +3,27 @@ body {
   width: 100%;
   margin: 0;
   height: 100%;
+  background-color: rgb(25, 25, 25);
+  color: white;
 }
-#appName {
-  background-color: rgb(228, 29, 69);
+#appLogo {
+  background-color: rgb(207, 0, 41);
   color: rgb(255, 255, 255);
   border-color: black;
   border-style: solid;
   border-width: 1px;
-  border-radius: 5%;
-  margin-left: 30%;
-  margin-right: 30%;
+  border-radius: 15%;
+  margin: auto;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100px;
+  height: 250px;
+}
+
+#appName {
+  color: whitesmoke;
+  margin: auto;
+  margin-left: 5px;
 }
 
 #title {
