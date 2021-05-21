@@ -35,9 +35,12 @@ class App extends Component {
       relatedVideosData: [],
       loading: true,
       text: "",
-      commentInfo: [],
+      commentInfo: []
     };
     this.postReply=this.postReply.bind(this);
+    this.getComments=this.getComments.bind(this);
+    this.updateLike=this.updateLike.bind(this);
+    this.updateDislike=this.updateDislike.bind(this);
   }
 
   componentDidMount() {
@@ -300,7 +303,8 @@ class App extends Component {
     }
   }
 
-  getComments() {
+  getComments = () => {
+    {console.log('hit get comments')}
     axios
       .get("http://localhost:5000/api/comments/")
       .then((res) => {
@@ -326,13 +330,10 @@ class App extends Component {
       });
   }
 
-  postReply(reply, index) {
+  async postReply(reply, index) {
     const filteredIdArray = this.state.commentInfo.filter(
         (comment) => comment.videoId === this.state.activeVideoId
       );
-        console.log("filteredArray", filteredIdArray);
-        console.log('post reply index', index);
-        console.log('post reply', reply);
     axios
       .post(
         "http://localhost:5000/api/comments/"+
@@ -340,10 +341,47 @@ class App extends Component {
           "/replies", reply)
       .then((res) => {
         console.log("post reply", res);
+        this.getComments();
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  updateLike(like, index) {
+    console.log('update like:', like);
+    const filteredIdArray = this.state.commentInfo.filter(
+      (comment) => comment.videoId === this.state.activeVideoId
+    );
+    console.log('update Like', filteredIdArray);
+    axios.put("http://localhost:5000/api/comments/"+
+      filteredIdArray[index]._id+
+      "/likes")
+    .then (res => {
+      console.log(res);
+      this.getComments();
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  updateDislike(dislike, index) {
+    console.log('update dislike:', dislike);
+    const filteredIdArray = this.state.commentInfo.filter(
+      (comment) => comment.videoId === this.state.activeVideoId
+    );
+    console.log('update dislike', filteredIdArray);
+    axios.put("http://localhost:5000/api/comments/"+
+      filteredIdArray[index]._id+
+      "/dislikes")
+    .then (res => {
+      console.log(res);
+      this.getComments();
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   handleSubmit(event) {
@@ -498,6 +536,9 @@ class App extends Component {
             text={this.state.text}
             commentInfo={this.state.commentInfo}
             postReply={this.postReply}
+            getComments={this.getComments}
+            updateLike={this.updateLike}
+            updateDislike={this.updateDislike}
           />
         ) : null}
       </div>

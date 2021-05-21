@@ -6,6 +6,7 @@ import TextContainer from "../TextContainer/TextContainer";
 const MainView = (props) => {
   return (
     <div className="container">
+      {console.log('mainview props', props)}
       <div className="row row-cols-2">
         <div className="col-8">
           <Player
@@ -43,6 +44,9 @@ const MainView = (props) => {
             handleChange={(e) => props.handleChange(e)}
             text={props.text}
             postReply={props.postReply}
+            getComments={props.getComments}
+            updateLike={props.updateLike}
+            updateDislike={props.updateDislike}
           />
         </div>
         <TextContainer

@@ -5,8 +5,6 @@ const ShowReply = (props) => {
     const commentInfo = props.commentInfo;
     const filteredIdArray = commentInfo.filter(
       (commentInfo) => commentInfo.videoId === currentVideoId);
-    console.log('show reply', filteredIdArray);
-    console.log('show reply index', filteredIdArray[props.index]);
     if (filteredIdArray[props.index].replies.length !== 0)
     return (
         <div>

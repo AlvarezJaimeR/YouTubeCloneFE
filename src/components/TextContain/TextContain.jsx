@@ -17,16 +17,17 @@ class TextContain extends Component {
         });
     }
 
-    handleSubmit(event, index) {
+    handleSubmit = async (event, index) => {
         event.preventDefault();
         console.log(this.state.text);
         const reply = {
             text: this.state.text
         }
-        this.props.postReply(reply, index);
+        await this.props.postReply(reply, index);
         this.setState({
             text: ''
         });
+        this.props.getComments();
     }
 
     render() { 
