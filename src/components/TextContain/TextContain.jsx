@@ -11,7 +11,6 @@ class TextContain extends Component {
     }
 
     handleChange(event) {
-        console.log('handle change event', event);
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -19,7 +18,6 @@ class TextContain extends Component {
 
     handleSubmit = async (event, index) => {
         event.preventDefault();
-        console.log(this.state.text);
         const reply = {
             text: this.state.text
         }
@@ -41,7 +39,7 @@ class TextContain extends Component {
                         name="text" 
                         value={this.state.text}
                         onChange={(event)=> this.handleChange(event)} 
-                        placeholder="Type Reply Here"
+                        placeholder='Type Reply Here'
                         />
                         <button className='btn btn-primary' type = 'submit'>
                             Add {this.props.title.toLowerCase()}

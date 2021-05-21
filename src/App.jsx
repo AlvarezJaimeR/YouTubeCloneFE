@@ -304,7 +304,6 @@ class App extends Component {
   }
 
   getComments = () => {
-    {console.log('hit get comments')}
     axios
       .get("http://localhost:5000/api/comments/")
       .then((res) => {
@@ -346,11 +345,9 @@ class App extends Component {
   }
 
   updateLike(like, index) {
-    console.log('update like:', like);
     const filteredIdArray = this.state.commentInfo.filter(
       (comment) => comment.videoId === this.state.activeVideoId
     );
-    console.log('update Like', filteredIdArray);
     axios.put("http://localhost:5000/api/comments/"+
       filteredIdArray[index]._id+
       "/likes")
@@ -364,11 +361,9 @@ class App extends Component {
   }
 
   updateDislike(dislike, index) {
-    console.log('update dislike:', dislike);
     const filteredIdArray = this.state.commentInfo.filter(
       (comment) => comment.videoId === this.state.activeVideoId
     );
-    console.log('update dislike', filteredIdArray);
     axios.put("http://localhost:5000/api/comments/"+
       filteredIdArray[index]._id+
       "/dislikes")

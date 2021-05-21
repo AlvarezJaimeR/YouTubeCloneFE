@@ -13,7 +13,7 @@ const ShowReply = (props) => {
             {filteredIdArray[props.index].replies.map((comment, index) => 
                 <div key={index}>
                     <div>
-                        <p>Reply #: {index+1}</p>
+                        <p className="reply-text">Reply #: {index+1}</p>
                         <p>Reply Date: {comment.date}</p>
                     </div>
                     <div className="comment-text">

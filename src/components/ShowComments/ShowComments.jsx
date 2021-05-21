@@ -15,11 +15,9 @@ const ShowComments = (props) => {
         {filteredIdArray.map((video, index) => 
             <div key={index}>
                 <div>
+                    <p className="col-md-4 comment-text">Comment #: {index +1}</p>
                     <p>Comment Date: {video.date}</p>
-                </div>
-                <div className="video-text">
-                    <p>Comment #: {index +1}</p>
-                    <p>{video.text}</p>
+                    <p className="video-text">{video.text}</p>
                 </div>
                 <div className="row">
                     <Like 

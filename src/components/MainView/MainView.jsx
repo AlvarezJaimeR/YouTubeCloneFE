@@ -42,7 +42,7 @@ const MainView = (props) => {
             text={props.text}
             videoId={props.activeVideoId}
         />
-        <div className="row">
+        <div className="row row-cols-1">
           <ShowComments
             videoId={props.activeVideoId}
             commentInfo={props.commentInfo}
