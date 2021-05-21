@@ -11,13 +11,15 @@ const ShowComments = (props) => {
     (commentInfo) => commentInfo.videoId === currentVideoId);
   return (
     <div>
-      <div>
+      <div> 
         {filteredIdArray.map((video, index) => 
             <div key={index}>
                 <div>
-                    <p className="col-md-4 comment-text">Comment #: {index +1}</p>
-                    <p>Comment Date: {video.date}</p>
-                    <p className="video-text">{video.text}</p>
+                    <p className="comment-top">Comment #: {index +1}</p> 
+                    <p className="comment-date">Comment Date: {video.date}</p>
+                </div>
+                <div>
+                    <p className="comment-text">{video.text}</p>
                 </div>
                 <div className="row">
                     <Like 
@@ -36,7 +38,7 @@ const ShowComments = (props) => {
                         commentInfo={props.commentInfo}
                     />
                 </div>
-                <div>
+                <div className="reply form">
                 <TextContain
                     title="Reply"
                     handleSubmit={(e) => props.handleSubmit(e)}

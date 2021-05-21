@@ -34,7 +34,7 @@ const MainView = (props) => {
           {props.activeVideoDescription}
         </p>
       </div>
-      <div className="row row-cols-1">
+      <div className="row">
         <TextContainer
             title="Comment"
             handleSubmit={(e) => props.handleSubmit(e)}
@@ -42,7 +42,7 @@ const MainView = (props) => {
             text={props.text}
             videoId={props.activeVideoId}
         />
-        <div className="row row-cols-1">
+        <div className="row">
           <ShowComments
             videoId={props.activeVideoId}
             commentInfo={props.commentInfo}

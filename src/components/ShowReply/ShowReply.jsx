@@ -8,25 +8,23 @@ const ShowReply = (props) => {
       (commentInfo) => commentInfo.videoId === currentVideoId);
     if (filteredIdArray[props.index].replies.length !== 0)
     return (
-        <div>
-          <div>
-            {filteredIdArray[props.index].replies.map((comment, index) => 
-                <div key={index}>
-                    <div>
-                        <p className="reply-text">Reply #: {index+1}</p>
-                        <p>Reply Date: {comment.date}</p>
-                    </div>
-                    <div className="comment-text">
-                        {comment.text}
-                    </div>
+        <div className="reply">
+        {filteredIdArray[props.index].replies.map((comment, index) => 
+            <div key={index}>
+                <div>
+                    <p className="reply-top">Reply #: {index+1}</p>
+                    <p className="reply-date">Reply Date: {comment.date}</p>
                 </div>
-            )}
-          </div>
+                <div className="reply-text">
+                    {comment.text}
+                </div>
+            </div>
+        )}
         </div>
       );
     if (filteredIdArray[props.index].replies.length === 0)
     return (
-        <h6>No Replies</h6>
+        <div className="reply">No Replies</div>
     );
 }
 

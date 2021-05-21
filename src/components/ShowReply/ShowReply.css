@@ -1,8 +1,17 @@
-.comment-text {
-	text-indent: 30px;
-	font-size: 20px;
+.reply {
+	margin-left: 40px;
 }
 
 .reply-text {
+	margin: 10px;
+}
+
+.reply-top {
 	font-weight: bold;
+	margin: 5px;
+}
+
+.reply-date {
+	font-weight: lighter;
+	margin: 5px;
 }

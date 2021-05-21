@@ -1,7 +1,17 @@
-.video-text {
-	text-indent: 10px;
+.comment-text {
+	margin: 10px;
 }
 
-.comment-text {
+.comment-top {
 	font-weight: bold;
+	margin: 5px;
+}
+
+.comment-date {
+	font-weight: lighter;
+	margin: 5px;
+}
+
+.reply-form {
+	margin-left: 40px;
 }
