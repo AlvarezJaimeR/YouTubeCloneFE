@@ -1,4 +1,5 @@
 import React from 'react';
+import './ShowReply.css';
 
 const ShowReply = (props) => {
     const currentVideoId = props.videoId;
@@ -8,15 +9,14 @@ const ShowReply = (props) => {
     if (filteredIdArray[props.index].replies.length !== 0)
     return (
         <div>
-          <h1>Show Replies</h1>
           <div>
             {filteredIdArray[props.index].replies.map((comment, index) => 
                 <div key={index}>
                     <div>
-                        <p>Reply Date:</p>
-                        {comment.date}
+                        <p>Reply #: {index+1}</p>
+                        <p>Reply Date: {comment.date}</p>
                     </div>
-                    <div>
+                    <div className="comment-text">
                         {comment.text}
                     </div>
                 </div>
@@ -26,7 +26,7 @@ const ShowReply = (props) => {
       );
     if (filteredIdArray[props.index].replies.length === 0)
     return (
-        <h1>No Replies</h1>
+        <h6>No Replies</h6>
     );
 }
 

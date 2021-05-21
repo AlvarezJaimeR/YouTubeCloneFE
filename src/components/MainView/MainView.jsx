@@ -6,7 +6,6 @@ import TextContainer from "../TextContainer/TextContainer";
 const MainView = (props) => {
   return (
     <div className="container">
-      {console.log('mainview props', props)}
       <div className="row row-cols-2">
         <div className="col-8">
           <Player
@@ -36,6 +35,13 @@ const MainView = (props) => {
         </p>
       </div>
       <div className="row row-cols-1">
+        <TextContainer
+            title="Comment"
+            handleSubmit={(e) => props.handleSubmit(e)}
+            handleChange={(e) => props.handleChange(e)}
+            text={props.text}
+            videoId={props.activeVideoId}
+        />
         <div className="row">
           <ShowComments
             videoId={props.activeVideoId}
@@ -49,13 +55,6 @@ const MainView = (props) => {
             updateDislike={props.updateDislike}
           />
         </div>
-        <TextContainer
-          title="Comment"
-          handleSubmit={(e) => props.handleSubmit(e)}
-          handleChange={(e) => props.handleChange(e)}
-          text={props.text}
-          videoId={props.activeVideoId}
-        />
       </div>
     </div>
   );

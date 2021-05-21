@@ -35,14 +35,14 @@ class TextContain extends Component {
             <div>
                 <form onSubmit={(event)=> this.handleSubmit(event, this.props.index)}>
                     <div key={this.props.index}>
-                        <label>{this.props.title}</label>
+                        <label></label>
                         <input 
                         type="text" 
                         name="text" 
                         value={this.state.text}
-                        onChange={(event)=> this.handleChange(event)} />
-                    </div>
-                    <div>
+                        onChange={(event)=> this.handleChange(event)} 
+                        placeholder="Type Reply Here"
+                        />
                         <button className='btn btn-primary' type = 'submit'>
                             Add {this.props.title.toLowerCase()}
                         </button>

@@ -3,7 +3,6 @@ import "./ShowComments.css";
 import TextContain from '../TextContain/TextContain';
 import ShowReply from '../ShowReply/ShowReply';
 import Like from '../Like/Like';
-import Dislike from '../Dislike/Dislike';
 
 const ShowComments = (props) => {
   const currentVideoId = props.videoId;
@@ -12,28 +11,22 @@ const ShowComments = (props) => {
     (commentInfo) => commentInfo.videoId === currentVideoId);
   return (
     <div>
-        {console.log('showcomments props', props)}
-      <h1>Show Comments</h1>
       <div>
         {filteredIdArray.map((video, index) => 
             <div key={index}>
                 <div>
-                    <p>Comment Date:</p>
-                    {video.date}
+                    <p>Comment Date: {video.date}</p>
                 </div>
                 <div className="video-text">
-                    {video.text}
+                    <p>Comment #: {index +1}</p>
+                    <p>{video.text}</p>
                 </div>
-                <div>
+                <div className="row">
                     <Like 
                         filteredIdArray={filteredIdArray}
                         index={index}
                         updateLike={props.updateLike}
                         like={filteredIdArray[index].likes}
-                    />
-                    <Dislike
-                        filteredIdArray={filteredIdArray}
-                        index={index}
                         updateDislike={props.updateDislike}
                         dislike={filteredIdArray[index].dislikes}
                     />

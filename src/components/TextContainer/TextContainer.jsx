@@ -3,19 +3,14 @@ import React from 'react';
 const TextContainer = (props) => {
     return (
         <div>
-            <form name={props.title.toLowerCase()} onSubmit={(event) => props.handleSubmit(event)}>
+            <form name={props.title.toLowerCase()} 
+                onSubmit={(event) => props.handleSubmit(event)}>
                 <div>
-                    <label>{props.title}</label>
+                    <label></label>
                     <input type="text" name="text" value={props.text}
-                    onChange={(event)=> props.handleChange(event)} />
-                </div>
-                <div className='d-none'>
-                    <label>Video Id</label>
-                    <input type="text" name="videoId" value ={props.videoId}
-                    onChange={(event) => props.handleChange(event)} />
-                </div>
-                <div>
-                    <button className='btn btn-danger' type = 'submit'>
+                    onChange={(event)=> props.handleChange(event)} 
+                    placeholder="Type Comment Here"/>
+                    <button className='btn btn-light' type = 'submit'>
                         Add {props.title.toLowerCase()}
                     </button>
                 </div>
