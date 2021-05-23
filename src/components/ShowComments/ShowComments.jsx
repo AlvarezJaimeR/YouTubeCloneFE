@@ -12,9 +12,11 @@ const ShowComments = (props) => {
   return (
     <div>
       <div> 
+      <details open className="comment">
+          <summary>Click to Show/Hide comments section.</summary>
         {filteredIdArray.map((video, index) => 
             <div key={index}>
-                <div>
+                <div >
                     <p className="comment-top">Comment #: {index +1}</p> 
                     <p className="comment-date">Comment Date: {video.date}</p>
                 </div>
@@ -53,6 +55,7 @@ const ShowComments = (props) => {
                 </div>
             </div>
         )}
+        </details>
       </div>
     </div>
   );
