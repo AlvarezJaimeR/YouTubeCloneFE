@@ -28,7 +28,7 @@ class App extends Component {
       activeVideoTitle: "",
       activeVideoDescription: "",
       activeVideoComments: [],
-      // apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
+      apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
       // apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
       // apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y", //Plan C
       youTubeVideoData: [],
@@ -46,8 +46,8 @@ class App extends Component {
   componentDidMount() {
     this.getComments();
     // this.randomSearch();
-    // this.searchYouTubeVideos();
-    this.testingYouTubeSearch();
+    this.searchYouTubeVideos();
+    //this.testingYouTubeSearch();
   }
 
   randomSearch() {
@@ -424,8 +424,8 @@ class App extends Component {
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    // await this.setRelatedVideosContent(video.id.videoId);
-    await this.setTestRelatedVideosContent();
+    await this.setRelatedVideosContent(video.id.videoId);
+    //await this.setTestRelatedVideosContent();
     this.toggleView("showMainView");
     this.toggleView("showResultsContainer");
   }
@@ -436,8 +436,8 @@ class App extends Component {
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    //await this.setRelatedVideosContent(video.id.videoId);
-    await this.setTestRelatedVideosContent();
+    await this.setRelatedVideosContent(video.id.videoId);
+    //await this.setTestRelatedVideosContent();
   }
 
   async setRelatedVideosContent(id) {
