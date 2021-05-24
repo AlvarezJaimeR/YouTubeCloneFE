@@ -34,27 +34,29 @@ const MainView = (props) => {
           {props.activeVideoDescription}
         </p>
       </div>
-      <div className="row">
-        <TextContainer
+      <div>
+      <div className="row float-end">
+        <TextContainer 
             title="Comment"
             handleSubmit={(e) => props.handleSubmit(e)}
             handleChange={(e) => props.handleChange(e)}
             text={props.text}
             videoId={props.activeVideoId}
         />
-        <div className="row">
-          <ShowComments
-            videoId={props.activeVideoId}
-            commentInfo={props.commentInfo}
-            handleSubmit={(e) => props.handleSubmit(e)}
-            handleChange={(e) => props.handleChange(e)}
-            text={props.text}
-            postReply={props.postReply}
-            getComments={props.getComments}
-            updateLike={props.updateLike}
-            updateDislike={props.updateDislike}
-          />
-        </div>
+      </div>
+          <div className="row">
+            <ShowComments
+              videoId={props.activeVideoId}
+              commentInfo={props.commentInfo}
+              handleSubmit={(e) => props.handleSubmit(e)}
+              handleChange={(e) => props.handleChange(e)}
+              text={props.text}
+              postReply={props.postReply}
+              getComments={props.getComments}
+              updateLike={props.updateLike}
+              updateDislike={props.updateDislike}
+            />
+          </div>
       </div>
     </div>
   );

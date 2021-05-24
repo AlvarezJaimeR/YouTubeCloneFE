@@ -12,9 +12,11 @@ const ShowComments = (props) => {
   return (
     <div>
       <div> 
+      <details open className="comment">
+          <summary>Click to Show/Hide comments section.</summary>
         {filteredIdArray.map((video, index) => 
             <div key={index}>
-                <div>
+                <div >
                     <p className="comment-top">Comment #: {index +1}</p> 
                     <p className="comment-date">Comment Date: {video.date}</p>
                 </div>
@@ -31,28 +33,32 @@ const ShowComments = (props) => {
                         dislike={filteredIdArray[index].dislikes}
                     />
                 </div>
-                <div>
-                    <ShowReply
+                <details open className="reply">
+                    <summary>Click to Show/Hide reply section.</summary>
+                    <div>
+                        <ShowReply
+                            videoId={props.videoId}
+                            index={index}
+                            commentInfo={props.commentInfo}
+                        />
+                    </div>
+                    <div className="reply form">
+                    <TextContain
+                        title="Reply"
+                        handleSubmit={(e) => props.handleSubmit(e)}
+                        handleChange={(e) => props.handleChange(e)}
                         videoId={props.videoId}
+                        text={props.text}
                         index={index}
                         commentInfo={props.commentInfo}
+                        postReply={props.postReply}
+                        getComments={props.getComments}
                     />
-                </div>
-                <div className="reply form">
-                <TextContain
-                    title="Reply"
-                    handleSubmit={(e) => props.handleSubmit(e)}
-                    handleChange={(e) => props.handleChange(e)}
-                    videoId={props.videoId}
-                    text={props.text}
-                    index={index}
-                    commentInfo={props.commentInfo}
-                    postReply={props.postReply}
-                    getComments={props.getComments}
-                />
-                </div>
+                    </div>
+                </details>
             </div>
         )}
+        </details>
       </div>
     </div>
   );
