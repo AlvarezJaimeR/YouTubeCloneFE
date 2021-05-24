@@ -10,17 +10,6 @@ class App extends Component {
     super(props);
     this.state = {
       videoInfo: [],
-      starterSearches: [
-        "pokemon",
-        "warhammer 40k",
-        "Mass Effect",
-        "Skateboarding",
-        "Longboarding",
-        "Scooters",
-        "Hoverboard",
-        "Cars",
-        "Gaming",
-      ],
       search: "pokemon",
       showResultsContainer: true,
       showMainView: false,
@@ -28,40 +17,26 @@ class App extends Component {
       activeVideoTitle: "",
       activeVideoDescription: "",
       activeVideoComments: [],
-      // apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
+      apiKey: "AIzaSyBpfAy7-ajjegw-Y80FJejrhNfnqAMUrsQ", //JR
       // apiKey: "AIzaSyBC3SI9BThQnsH-fsXvYop7Evr-3D2sSqE", //Danny
       // apiKey: "AIzaSyAArmkAhC1ST7wyMlnHOBBt5tS-EwblT1Y", //Plan C
       youTubeVideoData: [],
       relatedVideosData: [],
       loading: true,
       text: "",
-      commentInfo: []
+      commentInfo: [],
     };
-    this.postReply=this.postReply.bind(this);
-    this.getComments=this.getComments.bind(this);
-    this.updateLike=this.updateLike.bind(this);
-    this.updateDislike=this.updateDislike.bind(this);
+    this.postReply = this.postReply.bind(this);
+    this.getComments = this.getComments.bind(this);
+    this.updateLike = this.updateLike.bind(this);
+    this.updateDislike = this.updateDislike.bind(this);
   }
 
   componentDidMount() {
     this.getComments();
-    // this.randomSearch();
-    // this.searchYouTubeVideos();
-    this.testingYouTubeSearch();
+    this.searchYouTubeVideos();
   }
 
-  randomSearch() {
-    const randomSearch =
-      this.state.starterSearches[Math.floor(Math.random() * this.state.starterSearches.length)];
-    console.log(randomSearch);
-    this.setState({
-      search: randomSearch,
-    });
-  }
-
-  // `https://www.googleapis.com/youtube/v3/search?q=${searchString}&key=${apiKey}`
-  // `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${searchString}&key=${apiKey}`
-  // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&pageToken=CAkQAA&q=pokemon&key=[YOUR_API_KEY]
   searchYouTubeVideos() {
     axios
       .get(
@@ -78,231 +53,6 @@ class App extends Component {
       });
   }
 
-  getTestDataVideos() {
-    return new Promise((res, rej) => {
-      const response = {
-        data: {
-          items: [
-            {
-              id: {
-                videoId: "1",
-              },
-              snippet: {
-                title: "1",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "12",
-              },
-              snippet: {
-                title: "12",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "123",
-              },
-              snippet: {
-                title: "123",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "1234",
-              },
-              snippet: {
-                title: "1234",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "12345",
-              },
-              snippet: {
-                title: "12345",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "123456",
-              },
-              snippet: {
-                title: "123456",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "1234567",
-              },
-              snippet: {
-                title: "1234567",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "12345678",
-              },
-              snippet: {
-                title: "12345678",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "123456789",
-              },
-              snippet: {
-                title: "123456789",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            ,
-          ],
-        },
-      };
-      if (response != null) {
-        res(response);
-      } else {
-        rej(new Error(`Trash`));
-      }
-    });
-  }
-
-  async testingYouTubeSearch() {
-    try {
-      const response = await this.getTestDataVideos();
-      this.setState({
-        youTubeVideoData: response.data,
-        loading: false,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  getTestDataRelatedVideos() {
-    return new Promise((res, rej) => {
-      const response = {
-        data: {
-          items: [
-            {
-              id: {
-                videoId: "a",
-              },
-              snippet: {
-                title: "a",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "ab",
-              },
-              snippet: {
-                title: "ab",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "abc",
-              },
-              snippet: {
-                title: "abc",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-            {
-              id: {
-                videoId: "abcd",
-              },
-              snippet: {
-                title: "abcd",
-                thumbnails: {
-                  medium: {
-                    url: "https://i.ytimg.com/vi/bay37qWN6DI/mqdefault.jpg",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      };
-      if (response != null) {
-        res(response);
-      } else {
-        rej(new Error(`Trash`));
-      }
-    });
-  }
-
-  async setTestRelatedVideosContent() {
-    try {
-      const response = await this.getTestDataRelatedVideos();
-      this.setState({
-        relatedVideosData: response.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   getComments = () => {
     axios
       .get("http://localhost:5000/api/comments/")
@@ -316,7 +66,7 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   postComments(comments) {
     axios
@@ -331,8 +81,8 @@ class App extends Component {
 
   async postReply(reply, index) {
     const filteredIdArray = this.state.commentInfo.filter(
-        (comment) => comment.videoId === this.state.activeVideoId
-      );
+      (comment) => comment.videoId === this.state.activeVideoId
+    );
     axios
       .post("http://localhost:5000/api/comments/" + filteredIdArray[index]._id + "/replies", reply)
       .then((res) => {
@@ -348,32 +98,30 @@ class App extends Component {
     const filteredIdArray = this.state.commentInfo.filter(
       (comment) => comment.videoId === this.state.activeVideoId
     );
-    axios.put("http://localhost:5000/api/comments/"+
-      filteredIdArray[index]._id+
-      "/likes")
-    .then (res => {
-      console.log(res);
-      this.getComments();
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    axios
+      .put("http://localhost:5000/api/comments/" + filteredIdArray[index]._id + "/likes")
+      .then((res) => {
+        console.log(res);
+        this.getComments();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   updateDislike(dislike, index) {
     const filteredIdArray = this.state.commentInfo.filter(
       (comment) => comment.videoId === this.state.activeVideoId
     );
-    axios.put("http://localhost:5000/api/comments/"+
-      filteredIdArray[index]._id+
-      "/dislikes")
-    .then (res => {
-      console.log(res);
-      this.getComments();
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    axios
+      .put("http://localhost:5000/api/comments/" + filteredIdArray[index]._id + "/dislikes")
+      .then((res) => {
+        console.log(res);
+        this.getComments();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleSubmit(event) {
@@ -424,8 +172,7 @@ class App extends Component {
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    // await this.setRelatedVideosContent(video.id.videoId);
-    await this.setTestRelatedVideosContent();
+    await this.setRelatedVideosContent(video.id.videoId);
     this.toggleView("showMainView");
     this.toggleView("showResultsContainer");
   }
@@ -436,8 +183,7 @@ class App extends Component {
       activeVideoTitle: video.snippet.title,
       activeVideoDescription: video.snippet.description,
     });
-    //await this.setRelatedVideosContent(video.id.videoId);
-    await this.setTestRelatedVideosContent();
+    await this.setRelatedVideosContent(video.id.videoId);
   }
 
   async setRelatedVideosContent(id) {
