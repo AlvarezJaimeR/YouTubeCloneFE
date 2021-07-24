@@ -6,7 +6,7 @@ const SearchResultsContainer = (props) => {
 	const nextIndex = props.videos.nextPageToken;
 	const previousIndex = props.videos.prevPageToken;
 	return (
-		<div className="container">
+		<div className="container fluid">
 			<div className="row">
 				<div className="col-1 indexButton">
 					<button
@@ -18,7 +18,7 @@ const SearchResultsContainer = (props) => {
 				<div className="col-10">
 					<div className="row">
 						{videos.map((video) => (
-							<div className="col-6" key={video.id.videoId}>
+							<div className="col" key={video.id.videoId}>
 								<button
 									key={video.id.videoId}
 									className="btn btn-dark video-layout"
